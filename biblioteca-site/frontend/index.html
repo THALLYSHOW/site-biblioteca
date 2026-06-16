@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Biblioteca Municipal Augusto dos Anjos</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f4f4;
+      color:#333;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    /* HEADER */
+
+    header{
+      background:#0b3d91;
+      color:white;
+      padding:20px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    header h1{
+      font-size:30px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:25px;
+      font-size:18px;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:#ffd700;
+    }
+
+    /* HERO */
+
+    .hero{
+      height:90vh;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+      url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop');
+
+      background-size:cover;
+      background-position:center;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+
+      color:white;
+      padding:20px;
+    }
+
+    .hero-content h2{
+      font-size:60px;
+      margin-bottom:20px;
+    }
+
+    .hero-content p{
+      font-size:20px;
+      max-width:700px;
+      margin:auto;
+      line-height:1.7;
+      margin-bottom:30px;
+    }
+
+    .btn{
+      background:#ffd700;
+      color:black;
+      border:none;
+      padding:15px 30px;
+      border-radius:10px;
+      font-size:18px;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    .btn:hover{
+      background:#ffbf00;
+      transform:scale(1.05);
+    }
+
+    section{
+      padding:80px 8%;
+    }
+
+    .titulo{
+      text-align:center;
+      margin-bottom:50px;
+      color:#0b3d91;
+      font-size:42px;
+    }
+
+    /* SOBRE */
+
+    .sobre{
+      display:flex;
+      gap:40px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .sobre img{
+      width:100%;
+      max-width:500px;
+      border-radius:20px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .sobre-texto{
+      flex:1;
+    }
+
+    .sobre-texto h2{
+      color:#0b3d91;
+      margin-bottom:20px;
+      font-size:40px;
+    }
+
+    .sobre-texto p{
+      font-size:18px;
+      line-height:1.8;
+      margin-bottom:15px;
+    }
+
+    /* CARDS */
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:white;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+    }
+
+    .card img{
+      width:100%;
+      height:230px;
+      object-fit:cover;
+    }
+
+    .card-content{
+      padding:25px;
+    }
+
+    .card-content h3{
+      color:#0b3d91;
+      margin-bottom:15px;
+      font-size:26px;
+    }
+
+    .card-content p{
+      line-height:1.6;
+      margin-bottom:20px;
+    }
+
+    /* GALERIA */
+
+    .galeria{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .galeria img{
+      width:100%;
+      height:280px;
+      object-fit:cover;
+      border-radius:20px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .galeria img:hover{
+      transform:scale(1.03);
+    }
+
+    /* CONTATO */
+
+    .contato{
+      background:#0b3d91;
+      color:white;
+      text-align:center;
+    }
+
+    .contato h2{
+      font-size:42px;
+      margin-bottom:20px;
+    }
+
+    .contato p{
+      margin-bottom:15px;
+      font-size:18px;
+    }
+
+    .contato a{
+      color:white;
+      text-decoration:none;
+    }
+
+    .contato a:hover{
+      color:#ffd700;
+    }
+
+    .instagram{
+      margin-top:25px;
+    }
+
+    .instagram img{
+      width:45px;
+      transition:0.3s;
+    }
+
+    .instagram img:hover{
+      transform:scale(1.15);
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:black;
+      color:#aaa;
+      text-align:center;
+      padding:20px;
+    }
+
+    /* MODAL */
+
+    .modal{
+      display:none;
+      position:fixed;
+      z-index:9999;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.9);
+
+      justify-content:center;
+      align-items:center;
+    }
+
+    .modal img{
+      max-width:90%;
+      max-height:90%;
+      border-radius:20px;
+    }
+
+    .fechar{
+      position:absolute;
+      top:20px;
+      right:40px;
+      font-size:50px;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:768px){
+
+      header{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      nav a{
+        margin:10px;
+      }
+
+      .hero-content h2{
+        font-size:40px;
+      }
+
+      .titulo{
+        font-size:34px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <h1>Biblioteca Municipal Augusto dos Anjos</h1>
+
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#livros">Livros</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+      <h2>Conhecimento para Todos</h2>
+
+      <p>
+        Um espaço moderno dedicado à leitura,
+        aprendizado, cultura e inclusão digital.
+      </p>
+
+      <button class="btn" onclick="mostrarMensagem()">
+        Explorar Biblioteca
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- SOBRE -->
+
+  <section id="sobre">
+
+    <div class="sobre">
+
+      <img
+      src="bibliotecasape.jpeg"
+      alt="Biblioteca">
+
+      <div class="sobre-texto">
+
+        <h2>Sobre a Biblioteca</h2>
+
+        <p>
+          A Biblioteca Municipal promove acesso gratuito ao conhecimento,
+          incentivando educação, cultura e desenvolvimento social.
+        </p>
+
+        <p>
+          Nosso espaço conta com livros, computadores,
+          internet, salas de estudo e atividades educativas.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EVENTOS -->
+
+  <section id="eventos">
+
+    <h2 class="titulo">Notícias & Eventos</h2>
+
+    <div class="cards">
+
+      <!-- CARD 1 -->
+
+      <div class="card">
+
+        <img
+        src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1200&auto=format&fit=crop"
+        alt="Evento">
+
+        <div class="card-content">
+
+          <h3>Eventos da BMAA</h3>
+
+          <p>
+            Eventos culturais, palestras e oficinas para todas as idades.
+          </p>
+
+          <button class="btn" onclick="carregarEvento1()">
+            Ler Mais
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- CARD 2 -->
+
+      <div class="card">
+
+        <img
+        src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1200&auto=format&fit=crop"
+        alt="Livros">
+
+        <div class="card-content">
+
+          <h3>Livros</h3>
+
+          <p>
+            Veja os livros disponíveis na biblioteca.
+          </p>
+
+          <button class="btn" onclick="carregarLivros()">
+            Ver Livros
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- LIVROS -->
+
+  <section id="livros" style="display:none;">
+
+    <h2 class="titulo">Livros Disponíveis</h2>
+
+    <div id="lista-livros" class="cards">
+
+    </div>
+
+  </section>
+
+  <!-- GALERIA -->
+
+  <section id="galeria">
+
+    <h2 class="titulo">Galeria</h2>
+
+    <div class="galeria">
+
+      <img
+      src="eventos.jpeg"
+      onclick="abrirImagem(this.src)">
+
+      <img
+      src="galeriasite.jpeg"
+      onclick="abrirImagem(this.src)">
+
+      <img
+      src="eventosite.jpeg"
+      onclick="abrirImagem(this.src)">
+
+      <img
+      src="bibliotecasape.jpeg"
+      onclick="abrirImagem(this.src)">
+
+    </div>
+
+  </section>
+
+  <!-- CONTATO -->
+
+  <section class="contato" id="contato">
+
+    <h2>Contato</h2>
+  <p>
+    📍 
+    <a
+    href="https://www.google.com/maps/search/?api=1&query=-7.098984,-35.231609"
+    target="_blank"
+    style="color:white; text-decoration:none;"
+  >
+    R. Simplício Coelho, Sapé - PB, CEP 58340-000
+
+    </a>
+
+    <p>
+      📞 (83) 0000-0000
+    </p>
+
+    <p>
+      📧 bibliotecamunicipalalgusto@gmail.com
+    </p>
+
+    <div class="instagram">
+
+      <a
+      href="https://www.instagram.com/bibliotecaaugustodosanjos/"
+      target="_blank">
+
+        <img
+        src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      © 2026 Biblioteca Municipal Augusto dos Anjos
+    </p>
+
+  </footer>
+
+  <!-- MODAL -->
+
+  <div class="modal" id="modal">
+
+    <span class="fechar" onclick="fecharModal()">
+      &times;
+    </span>
+
+    <img id="imagemModal">
+
+  </div>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    function mostrarMensagem(){
+
+      alert("Bem-vindo à Biblioteca Municipal!");
+
+    }
+
+    function abrirImagem(src){
+
+      document.getElementById("modal").style.display = "flex";
+
+      document.getElementById("imagemModal").src = src;
+
+    }
+
+    function fecharModal(){
+
+      document.getElementById("modal").style.display = "none";
+
+    }
+
+    // EVENTO 1
+
+    async function carregarEvento1(){
+
+      const resposta = await fetch(
+        "http://127.0.0.1:8000/evento1"
+      );
+
+      const dados = await resposta.json();
+
+      alert(
+        dados.titulo + "\n\n" + dados.descricao
+      );
+
+    }
+
+
+    // LIVROS
+async function carregarLivros(){
+
+  try {
+
+    const resposta = await fetch(
+      "http://127.0.0.1:8000/livros"
+    );
+
+    if(!resposta.ok){
+      throw new Error("Backend não respondeu");
+    }
+
+    const livros = await resposta.json();
+
+    const lista = document.getElementById("lista-livros");
+
+    lista.innerHTML = "";
+
+    livros.forEach(livro => {
+
+      lista.innerHTML += `
+        <div class="card">
+          <div class="card-content">
+            <h3>${livro.titulo}</h3>
+            <p>Autor: ${livro.autor}</p>
+          </div>
+        </div>
+      `;
+
+    });
+
+    document.getElementById("livros").style.display = "block";
+
+    document.getElementById("livros").scrollIntoView({
+      behavior:"smooth"
+    });
+
+  } catch(erro) {
+
+    console.error(erro);
+
+    alert(
+      "Erro ao conectar com o servidor da biblioteca."
+    );
+
+  }
+
+}
+
+  </script>
+
+</body>
+</html>
