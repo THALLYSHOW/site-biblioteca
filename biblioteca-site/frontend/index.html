@@ -1,651 +1,1196 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
   <title>Biblioteca Municipal Augusto dos Anjos</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --navy:#0b3d91; --navy-dk:#082d6b; --gold:#f5c400; --gold-lt:#ffd740;
+      --cream:#faf8f3; --ink:#1a1a2e; --muted:#6b7280; --line:#e5e7eb; --white:#fff;
+      --danger:#dc2626; --success:#16a34a; --warn:#d97706;
+      --font-display:'Playfair Display',Georgia,serif;
+      --font-body:'Inter',Arial,sans-serif;
+      --r-sm:8px; --r-md:16px; --r-lg:24px;
+      --sh-sm:0 2px 8px rgba(0,0,0,.08);
+      --sh-md:0 8px 24px rgba(0,0,0,.12);
+      --sh-lg:0 16px 48px rgba(0,0,0,.18);
+      --t:.25s ease;
     }
-
-    body{
-      background:#f4f4f4;
-      color:#333;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--cream); color:var(--ink); font-family:var(--font-body); line-height:1.6; }
 
     /* HEADER */
-
-    header{
-      background:#0b3d91;
-      color:white;
-      padding:20px 8%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:sticky;
-      top:0;
-      z-index:1000;
-    }
-
-    header h1{
-      font-size:30px;
-    }
-
-    nav a{
-      color:white;
-      text-decoration:none;
-      margin-left:25px;
-      font-size:18px;
-      transition:0.3s;
-    }
-
-    nav a:hover{
-      color:#ffd700;
-    }
+    header { background:var(--navy); color:#fff; padding:0 6%; height:68px; display:flex;
+      align-items:center; justify-content:space-between; position:sticky; top:0; z-index:900;
+      box-shadow:0 2px 16px rgba(0,0,0,.3); }
+    .hbrand { display:flex; align-items:center; gap:12px; }
+    .hbrand h1 { font-family:var(--font-display); font-size:17px; font-weight:700; }
+    nav { display:flex; align-items:center; gap:4px; }
+    nav a { color:rgba(255,255,255,.85); text-decoration:none; font-size:13px; font-weight:500;
+      padding:6px 13px; border-radius:var(--r-sm); transition:var(--t); }
+    nav a:hover { color:var(--gold); background:rgba(255,255,255,.08); }
+    .nav-admin { margin-left:8px; background:var(--gold); color:var(--ink)!important; font-weight:700!important; }
+    .nav-admin:hover { background:var(--gold-lt)!important; }
 
     /* HERO */
+    .hero { min-height:88vh;
+      background:linear-gradient(160deg,rgba(11,61,145,.9) 0%,rgba(8,20,60,.78) 100%),
+      url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+      display:flex; align-items:center; padding:0 8%; }
+    .hero-c { max-width:680px; }
+    .hero-ey { display:inline-block; font-size:12px; font-weight:600; letter-spacing:2.5px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+    .hero-c h2 { font-family:var(--font-display); font-size:clamp(40px,6vw,70px); font-weight:900;
+      color:#fff; line-height:1.1; margin-bottom:22px; }
+    .hero-c h2 em { font-style:italic; color:var(--gold); }
+    .hero-c p { font-size:18px; color:rgba(255,255,255,.8); line-height:1.8; margin-bottom:38px; max-width:520px; }
+    .hero-ac { display:flex; gap:16px; flex-wrap:wrap; }
+    .btn-p { background:var(--gold); color:var(--ink); border:none; padding:13px 30px;
+      border-radius:var(--r-sm); font-size:15px; font-weight:700; cursor:pointer; transition:var(--t);
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+    .btn-p:hover { background:var(--gold-lt); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,196,0,.4); }
+    .btn-o { background:transparent; color:#fff; border:2px solid rgba(255,255,255,.5); padding:13px 30px;
+      border-radius:var(--r-sm); font-size:15px; font-weight:600; cursor:pointer; transition:var(--t);
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+    .btn-o:hover { border-color:#fff; background:rgba(255,255,255,.1); }
 
-    .hero{
-      height:90vh;
-
-      background:
-      linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-      url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop');
-
-      background-size:cover;
-      background-position:center;
-
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-
-      color:white;
-      padding:20px;
-    }
-
-    .hero-content h2{
-      font-size:60px;
-      margin-bottom:20px;
-    }
-
-    .hero-content p{
-      font-size:20px;
-      max-width:700px;
-      margin:auto;
-      line-height:1.7;
-      margin-bottom:30px;
-    }
-
-    .btn{
-      background:#ffd700;
-      color:black;
-      border:none;
-      padding:15px 30px;
-      border-radius:10px;
-      font-size:18px;
-      cursor:pointer;
-      transition:0.3s;
-      font-weight:bold;
-    }
-
-    .btn:hover{
-      background:#ffbf00;
-      transform:scale(1.05);
-    }
-
-    section{
-      padding:80px 8%;
-    }
-
-    .titulo{
-      text-align:center;
-      margin-bottom:50px;
-      color:#0b3d91;
-      font-size:42px;
-    }
+    /* SECTIONS */
+    section { padding:88px 8%; }
+    .slabel { font-size:12px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase;
+      color:var(--gold); display:block; margin-bottom:10px; }
+    .stitle { font-family:var(--font-display); font-size:clamp(28px,4vw,46px); font-weight:700;
+      color:var(--navy); margin-bottom:14px; }
+    .ssub { color:var(--muted); font-size:16px; max-width:540px; line-height:1.7; margin-bottom:52px; }
 
     /* SOBRE */
+    #sobre { background:#fff; }
+    .sobre-g { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .sobre-img { width:100%; border-radius:var(--r-lg); box-shadow:var(--sh-lg); aspect-ratio:4/3; object-fit:cover; display:block; }
+    .sobre-st { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:36px; }
+    .stat { background:var(--cream); border-radius:var(--r-md); padding:18px; border-left:4px solid var(--gold); }
+    .stat strong { display:block; font-family:var(--font-display); font-size:30px; font-weight:900; color:var(--navy); line-height:1; }
+    .stat span { font-size:13px; color:var(--muted); font-weight:500; margin-top:4px; display:block; }
 
-    .sobre{
-      display:flex;
-      gap:40px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
+    /* EVENTOS */
+    #eventos { background:var(--cream); }
+    .ev-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:28px; }
+    .ev-card { background:#fff; border-radius:var(--r-lg); overflow:hidden;
+      box-shadow:var(--sh-sm); transition:var(--t); display:flex; flex-direction:column; }
+    .ev-card:hover { transform:translateY(-6px); box-shadow:var(--sh-lg); }
+    .ev-card img { width:100%; height:200px; object-fit:cover; display:block; }
+    .ev-body { padding:24px; display:flex; flex-direction:column; flex:1; }
+    .ev-tag { display:inline-block; background:rgba(11,61,145,.1); color:var(--navy);
+      font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      padding:4px 10px; border-radius:20px; margin-bottom:12px; width:fit-content; }
+    .ev-body h3 { font-family:var(--font-display); font-size:20px; color:var(--ink);
+      margin-bottom:8px; line-height:1.3; }
+    .ev-body p { color:var(--muted); font-size:14px; line-height:1.7; margin-bottom:18px; flex:1;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .ev-loading-msg { color:var(--muted); font-size:15px; padding:20px 0; }
+    .ev-err { color:var(--danger); font-size:15px; padding:20px 0; }
 
-    .sobre img{
-      width:100%;
-      max-width:500px;
-      border-radius:20px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.2);
-    }
-
-    .sobre-texto{
-      flex:1;
-    }
-
-    .sobre-texto h2{
-      color:#0b3d91;
-      margin-bottom:20px;
-      font-size:40px;
-    }
-
-    .sobre-texto p{
-      font-size:18px;
-      line-height:1.8;
-      margin-bottom:15px;
-    }
-
-    /* CARDS */
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
-      gap:30px;
-    }
-
-    .card{
-      background:white;
-      border-radius:20px;
-      overflow:hidden;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
-      transition:0.3s;
-    }
-
-    .card:hover{
-      transform:translateY(-10px);
-    }
-
-    .card img{
-      width:100%;
-      height:230px;
-      object-fit:cover;
-    }
-
-    .card-content{
-      padding:25px;
-    }
-
-    .card-content h3{
-      color:#0b3d91;
-      margin-bottom:15px;
-      font-size:26px;
-    }
-
-    .card-content p{
-      line-height:1.6;
-      margin-bottom:20px;
-    }
+    /* LIVROS */
+    #livros { background:#fff; }
+    .livros-hd { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:36px; }
+    .filtros { display:flex; gap:8px; flex-wrap:wrap; }
+    .fbtn { border:2px solid var(--line); background:transparent; color:var(--muted); font-size:13px;
+      font-weight:600; padding:7px 17px; border-radius:20px; cursor:pointer; transition:var(--t); }
+    .fbtn:hover,.fbtn.ativo { border-color:var(--navy); background:var(--navy); color:#fff; }
+    #loading-livros { text-align:center; padding:56px; color:var(--muted); font-size:16px; display:none; }
+    .livros-g { display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:24px; }
+    .lcard { background:var(--cream); border-radius:var(--r-md); padding:26px; border:1px solid var(--line);
+      transition:var(--t); display:flex; flex-direction:column; gap:8px; }
+    .lcard:hover { border-color:var(--navy); box-shadow:var(--sh-md); transform:translateY(-4px); }
+    .lbadge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      padding:3px 10px; border-radius:20px; width:fit-content; }
+    .bg-gen { color:var(--gold); background:rgba(245,196,0,.15); }
+    .bg-disp { color:var(--success); background:rgba(22,163,74,.12); }
+    .bg-emp { color:var(--danger); background:rgba(220,38,38,.1); }
+    .bg-doa { color:#7c3aed; background:rgba(124,58,237,.1); }
+    .bg-comp { color:var(--warn); background:rgba(217,119,6,.1); }
+    .licone { font-size:34px; line-height:1; }
+    .lcard h3 { font-family:var(--font-display); font-size:18px; color:var(--ink); line-height:1.3; }
+    .lautor { font-size:13px; color:var(--muted); font-weight:500; }
+    .ldesc { font-size:13px; color:var(--muted); line-height:1.6; flex:1; }
+    .lactions { display:none; gap:8px; margin-top:6px; flex-wrap:wrap; }
+    .admin-on .lactions { display:flex; }
+    .bsm { border:none; padding:7px 13px; border-radius:var(--r-sm); font-size:12px; font-weight:700; cursor:pointer; transition:var(--t); }
+    .bedit { background:rgba(11,61,145,.1); color:var(--navy); } .bedit:hover { background:var(--navy); color:#fff; }
+    .bdel  { background:rgba(220,38,38,.1); color:var(--danger); } .bdel:hover { background:var(--danger); color:#fff; }
+    .bloan { background:rgba(22,163,74,.12); color:var(--success); } .bloan:hover { background:var(--success); color:#fff; }
+    .bdev  { background:rgba(11,61,145,.1); color:var(--navy); } .bdev:hover { background:var(--navy); color:#fff; }
 
     /* GALERIA */
-
-    .galeria{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-      gap:20px;
-    }
-
-    .galeria img{
-      width:100%;
-      height:280px;
-      object-fit:cover;
-      border-radius:20px;
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    .galeria img:hover{
-      transform:scale(1.03);
-    }
+    #galeria { background:var(--cream); }
+    .gal-g { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .gal-g img { width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:var(--r-md); cursor:pointer; transition:var(--t); display:block; }
+    .gal-g img:first-child { grid-column:span 2; aspect-ratio:unset; height:100%; }
+    .gal-g img:hover { transform:scale(1.02); opacity:.91; }
 
     /* CONTATO */
-
-    .contato{
-      background:#0b3d91;
-      color:white;
-      text-align:center;
-    }
-
-    .contato h2{
-      font-size:42px;
-      margin-bottom:20px;
-    }
-
-    .contato p{
-      margin-bottom:15px;
-      font-size:18px;
-    }
-
-    .contato a{
-      color:white;
-      text-decoration:none;
-    }
-
-    .contato a:hover{
-      color:#ffd700;
-    }
-
-    .instagram{
-      margin-top:25px;
-    }
-
-    .instagram img{
-      width:45px;
-      transition:0.3s;
-    }
-
-    .instagram img:hover{
-      transform:scale(1.15);
-    }
+    #contato { background:var(--navy); color:#fff; }
+    .cont-g { display:grid; grid-template-columns:1fr auto; gap:56px; align-items:start; }
+    #contato .stitle { color:#fff; }
+    .cont-items { display:flex; flex-direction:column; gap:18px; margin-top:36px; }
+    .ci { display:flex; align-items:center; gap:14px; font-size:15px; }
+    .ci-ic { width:42px; height:42px; background:rgba(255,255,255,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+    .ci a { color:#fff; text-decoration:none; } .ci a:hover { color:var(--gold); }
+    .cont-soc { margin-top:28px; }
+    .cont-soc p { font-size:12px; color:rgba(255,255,255,.5); margin-bottom:10px; }
+    .soclinks { display:flex; gap:10px; }
+    .soclinks a { width:42px; height:42px; background:rgba(255,255,255,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:var(--t); }
+    .soclinks a:hover { background:var(--gold); }
+    .soclinks img { width:20px; }
+    .cont-map { background:rgba(255,255,255,.08); border-radius:var(--r-lg); padding:26px; min-width:260px; }
+    .cont-map p { font-size:13px; color:rgba(255,255,255,.7); margin-bottom:14px; }
+    .mapbtn { display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:var(--ink);
+      font-weight:700; font-size:14px; padding:10px 20px; border-radius:var(--r-sm); text-decoration:none; transition:var(--t); }
+    .mapbtn:hover { background:var(--gold-lt); }
 
     /* FOOTER */
+    footer { background:var(--ink); color:rgba(255,255,255,.4); text-align:center; padding:22px; font-size:13px; }
 
-    footer{
-      background:black;
-      color:#aaa;
-      text-align:center;
-      padding:20px;
+    /* MODAL GALERIA */
+    .mol { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9999; align-items:center; justify-content:center; }
+    .mol.open { display:flex; }
+    .mol img { max-width:90vw; max-height:88vh; border-radius:var(--r-md); }
+    .mol-x { position:absolute; top:18px; right:30px; font-size:40px; color:#fff; cursor:pointer; opacity:.7; transition:var(--t); }
+    .mol-x:hover { opacity:1; }
+
+    /* MODAL ADMIN */
+    .aov { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; align-items:center; justify-content:center; padding:16px; }
+    .aov.open { display:flex; }
+    .amol { background:#fff; border-radius:var(--r-lg); width:100%; max-width:980px; max-height:92vh; overflow-y:auto; box-shadow:var(--sh-lg); }
+    .amol-hd { background:var(--navy); color:#fff; padding:22px 30px; display:flex; align-items:center;
+      justify-content:space-between; border-radius:var(--r-lg) var(--r-lg) 0 0; position:sticky; top:0; z-index:10; }
+    .amol-hd h2 { font-family:var(--font-display); font-size:21px; }
+    .amol-x { background:none; border:none; color:#fff; font-size:28px; cursor:pointer; opacity:.7; transition:var(--t); line-height:1; }
+    .amol-x:hover { opacity:1; }
+    .amol-bd { padding:28px; }
+
+    /* LOGIN ADMIN */
+    #step1,#step2 { display:none; }
+    #step1.ativo,#step2.ativo { display:block; }
+    #painel-login { display:block; }
+    #painel-admin { display:none; }
+    .fg { margin-bottom:16px; }
+    .fg label { display:block; font-size:12px; font-weight:600; color:var(--ink); margin-bottom:5px; text-transform:uppercase; letter-spacing:.5px; }
+    .fg input,.fg select,.fg textarea { width:100%; border:2px solid var(--line); border-radius:var(--r-sm); padding:10px 13px;
+      font-size:14px; font-family:var(--font-body); color:var(--ink); background:#fff; transition:var(--t); outline:none; }
+    .fg textarea { resize:vertical; min-height:80px; }
+    .fg input:focus,.fg select:focus,.fg textarea:focus { border-color:var(--navy); }
+    .ferr { color:var(--danger); font-size:13px; margin-top:8px; display:none; padding:8px 12px; background:rgba(220,38,38,.08); border-radius:var(--r-sm); }
+    .btn-full { width:100%; padding:12px; font-size:15px; font-weight:700; border:none; border-radius:var(--r-sm); cursor:pointer; transition:var(--t); }
+    .btn-navy { background:var(--navy); color:#fff; } .btn-navy:hover { background:var(--navy-dk); }
+
+    /* Toggle Doação/Compra */
+    .tipo-aq { display:flex; gap:0; border-radius:var(--r-sm); overflow:hidden; border:2px solid var(--line); }
+    .tipo-aq button { flex:1; padding:10px; border:none; background:transparent; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; transition:var(--t); }
+    .tipo-aq button.sel-doa { background:#7c3aed; color:#fff; }
+    .tipo-aq button.sel-comp { background:var(--warn); color:#fff; }
+
+    /* Upload preview */
+    .upload-area { border:2px dashed var(--line); border-radius:var(--r-md); padding:20px; text-align:center; cursor:pointer; transition:var(--t); position:relative; }
+    .upload-area:hover { border-color:var(--navy); background:rgba(11,61,145,.03); }
+    .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .upload-preview { width:100%; max-height:180px; object-fit:cover; border-radius:var(--r-sm); margin-top:12px; display:none; }
+    .upload-nome { font-size:13px; color:var(--muted); margin-top:8px; }
+
+    /* Abas admin */
+    .atabs { display:flex; gap:2px; margin-bottom:24px; border-bottom:2px solid var(--line); overflow-x:auto; }
+    .atab { background:none; border:none; padding:11px 18px; font-size:13px; font-weight:600; color:var(--muted);
+      cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:var(--t); white-space:nowrap; }
+    .atab:hover { color:var(--navy); }
+    .atab.ativa { color:var(--navy); border-bottom-color:var(--gold); }
+    .apc { display:none; }
+    .apc.ativo { display:block; }
+    .aform { background:var(--cream); border-radius:var(--r-md); padding:22px; margin-bottom:28px; }
+    .aform h3 { font-family:var(--font-display); font-size:19px; color:var(--navy); margin-bottom:18px; }
+    .frow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .alist-t { font-family:var(--font-display); font-size:19px; color:var(--navy); margin-bottom:10px; }
+    .arow { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
+    .arow:last-child { border-bottom:none; }
+    .ainfo { flex:1; min-width:0; }
+    .ainfo strong { display:block; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ainfo span { font-size:12px; color:var(--muted); }
+    .aac { display:flex; gap:6px; flex-shrink:0; }
+
+    /* Toast */
+    .toast { position:fixed; bottom:28px; right:28px; background:var(--ink); color:#fff; padding:13px 20px;
+      border-radius:var(--r-sm); font-size:14px; font-weight:500; z-index:99999;
+      transform:translateY(80px); opacity:0; transition:.33s ease; box-shadow:var(--sh-lg); max-width:320px; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast.ok  { border-left:4px solid var(--success); }
+    .toast.err { border-left:4px solid var(--danger); }
+    .toast.warn { border-left:4px solid var(--warn); }
+
+    @media(max-width:900px) {
+      .sobre-g { grid-template-columns:1fr; gap:36px; }
+      .cont-g { grid-template-columns:1fr; }
+      .gal-g { grid-template-columns:1fr 1fr; }
+      .gal-g img:first-child { grid-column:span 1; aspect-ratio:3/4; height:auto; }
     }
-
-    /* MODAL */
-
-    .modal{
-      display:none;
-      position:fixed;
-      z-index:9999;
-      left:0;
-      top:0;
-      width:100%;
-      height:100%;
-      background:rgba(0,0,0,0.9);
-
-      justify-content:center;
-      align-items:center;
+    @media(max-width:600px) {
+      header { flex-direction:column; height:auto; padding:14px 5%; gap:10px; }
+      nav { flex-wrap:wrap; justify-content:center; }
+      .hero { padding:56px 5%; }
+      section { padding:60px 5%; }
+      .gal-g { grid-template-columns:1fr; }
+      .frow { grid-template-columns:1fr; }
+      .amol-bd { padding:18px; }
     }
-
-    .modal img{
-      max-width:90%;
-      max-height:90%;
-      border-radius:20px;
-    }
-
-    .fechar{
-      position:absolute;
-      top:20px;
-      right:40px;
-      font-size:50px;
-      color:white;
-      cursor:pointer;
-    }
-
-    /* RESPONSIVO */
-
-    @media(max-width:768px){
-
-      header{
-        flex-direction:column;
-        gap:15px;
-      }
-
-      nav{
-        display:flex;
-        flex-wrap:wrap;
-        justify-content:center;
-      }
-
-      nav a{
-        margin:10px;
-      }
-
-      .hero-content h2{
-        font-size:40px;
-      }
-
-      .titulo{
-        font-size:34px;
-      }
-
-    }
-
   </style>
 </head>
-
 <body>
 
-  <!-- HEADER -->
+<!-- HEADER -->
+<header>
+  <div class="hbrand"><span style="font-size:26px">📚</span><h1>Biblioteca Municipal Augusto dos Anjos</h1></div>
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#eventos">Eventos</a>
+    <a href="#livros">Livros</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#contato">Contato</a>
+    <a href="#" class="nav-admin" onclick="abrirAdmin(event)">⚙ Admin</a>
+  </nav>
+</header>
 
-  <header>
-
-    <h1>Biblioteca Municipal Augusto dos Anjos</h1>
-
-    <nav>
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#eventos">Eventos</a>
-      <a href="#livros">Livros</a>
-      <a href="#galeria">Galeria</a>
-      <a href="#contato">Contato</a>
-    </nav>
-
-  </header>
-
-  <!-- HERO -->
-
-  <section class="hero" id="inicio">
-
-    <div class="hero-content">
-
-      <h2>Conhecimento para Todos</h2>
-
-      <p>
-        Um espaço moderno dedicado à leitura,
-        aprendizado, cultura e inclusão digital.
-      </p>
-
-      <button class="btn" onclick="mostrarMensagem()">
-        Explorar Biblioteca
-      </button>
-
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-c">
+    <span class="hero-ey">Sapé — Paraíba</span>
+    <h2>O conhecimento<br/><em>é para todos</em></h2>
+    <p>Um espaço moderno dedicado à leitura, aprendizado, cultura e inclusão digital para toda a comunidade.</p>
+    <div class="hero-ac">
+      <a href="#livros" class="btn-p">📖 Ver acervo</a>
+      <a href="#sobre" class="btn-o">Conhecer a biblioteca</a>
     </div>
-
-  </section>
-
-  <!-- SOBRE -->
-
-  <section id="sobre">
-
-    <div class="sobre">
-
-      <img
-      src="bibliotecasape.jpeg"
-      alt="Biblioteca">
-
-      <div class="sobre-texto">
-
-        <h2>Sobre a Biblioteca</h2>
-
-        <p>
-          A Biblioteca Municipal promove acesso gratuito ao conhecimento,
-          incentivando educação, cultura e desenvolvimento social.
-        </p>
-
-        <p>
-          Nosso espaço conta com livros, computadores,
-          internet, salas de estudo e atividades educativas.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- EVENTOS -->
-
-  <section id="eventos">
-
-    <h2 class="titulo">Notícias & Eventos</h2>
-
-    <div class="cards">
-
-      <!-- CARD 1 -->
-
-      <div class="card">
-
-        <img
-        src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1200&auto=format&fit=crop"
-        alt="Evento">
-
-        <div class="card-content">
-
-          <h3>Eventos da BMAA</h3>
-
-          <p>
-            Eventos culturais, palestras e oficinas para todas as idades.
-          </p>
-
-          <button class="btn" onclick="carregarEvento1()">
-            Ler Mais
-          </button>
-
-        </div>
-
-      </div>
-
-      <!-- CARD 2 -->
-
-      <div class="card">
-
-        <img
-        src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1200&auto=format&fit=crop"
-        alt="Livros">
-
-        <div class="card-content">
-
-          <h3>Livros</h3>
-
-          <p>
-            Veja os livros disponíveis na biblioteca.
-          </p>
-
-          <button class="btn" onclick="carregarLivros()">
-            Ver Livros
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- LIVROS -->
-
-  <section id="livros" style="display:none;">
-
-    <h2 class="titulo">Livros Disponíveis</h2>
-
-    <div id="lista-livros" class="cards">
-
-    </div>
-
-  </section>
-
-  <!-- GALERIA -->
-
-  <section id="galeria">
-
-    <h2 class="titulo">Galeria</h2>
-
-    <div class="galeria">
-
-      <img
-      src="eventos.jpeg"
-      onclick="abrirImagem(this.src)">
-
-      <img
-      src="galeriasite.jpeg"
-      onclick="abrirImagem(this.src)">
-
-      <img
-      src="eventosite.jpeg"
-      onclick="abrirImagem(this.src)">
-
-      <img
-      src="bibliotecasape.jpeg"
-      onclick="abrirImagem(this.src)">
-
-    </div>
-
-  </section>
-
-  <!-- CONTATO -->
-
-  <section class="contato" id="contato">
-
-    <h2>Contato</h2>
-  <p>
-    📍 
-    <a
-    href="https://www.google.com/maps/search/?api=1&query=-7.098984,-35.231609"
-    target="_blank"
-    style="color:white; text-decoration:none;"
-  >
-    R. Simplício Coelho, Sapé - PB, CEP 58340-000
-
-    </a>
-
-    <p>
-      📞 (83) 0000-0000
-    </p>
-
-    <p>
-      📧 bibliotecamunicipalalgusto@gmail.com
-    </p>
-
-    <div class="instagram">
-
-      <a
-      href="https://www.instagram.com/bibliotecaaugustodosanjos/"
-      target="_blank">
-
-        <img
-        src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-
-      </a>
-
-    </div>
-
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <p>
-      © 2026 Biblioteca Municipal Augusto dos Anjos
-    </p>
-
-  </footer>
-
-  <!-- MODAL -->
-
-  <div class="modal" id="modal">
-
-    <span class="fechar" onclick="fecharModal()">
-      &times;
-    </span>
-
-    <img id="imagemModal">
-
   </div>
+</section>
 
-  <!-- JAVASCRIPT -->
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-g">
+    <div>
+      <span class="slabel">Nossa história</span>
+      <h2 class="stitle">Sobre a Biblioteca</h2>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-bottom:14px;">
+        A Biblioteca Municipal Augusto dos Anjos promove acesso gratuito ao conhecimento,
+        incentivando a educação, a cultura e o desenvolvimento social em Sapé e região.
+      </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;">
+        Nosso espaço conta com livros, computadores com internet, salas de estudo
+        e atividades educativas abertas a todas as idades.
+      </p>
+      <div class="sobre-st">
+        <div class="stat"><strong>+2 mil</strong><span>Livros no acervo</span></div>
+        <div class="stat"><strong>Gratuito</strong><span>Acesso livre</span></div>
+        <div class="stat"><strong>Wi-Fi</strong><span>Internet disponível</span></div>
+        <div class="stat"><strong>Todos</strong><span>Todas as idades</span></div>
+      </div>
+    </div>
+    <div>
+      <img class="sobre-img" src="bibliotecasape.jpeg" alt="Biblioteca Municipal Augusto dos Anjos"
+        onerror="this.src='https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=900&auto=format&fit=crop'"/>
+    </div>
+  </div>
+</section>
 
-  <script>
+<!-- EVENTOS — cards carregados do backend, "Ler mais" vai para evento.html?id=X -->
+<section id="eventos">
+  <span class="slabel">Programação</span>
+  <h2 class="stitle">Eventos</h2>
+  <p class="ssub">Fique por dentro das atividades culturais e educativas da biblioteca.</p>
+  <div class="ev-grid" id="ev-grid">
+    <p class="ev-loading-msg">⏳ Carregando eventos...</p>
+  </div>
+</section>
 
-    function mostrarMensagem(){
+<!-- LIVROS -->
+<section id="livros">
+  <div class="livros-hd">
+    <div>
+      <span class="slabel">Acervo</span>
+      <h2 class="stitle" style="margin-bottom:0">Livros Disponíveis</h2>
+    </div>
+    <div class="filtros" id="filtros">
+      <button class="fbtn ativo" onclick="filtrar(this,'')">Todos</button>
+    </div>
+  </div>
+  <div id="loading-livros">⏳ Carregando livros...</div>
+  <div class="livros-g" id="lista-livros"></div>
+</section>
 
-      alert("Bem-vindo à Biblioteca Municipal!");
+<!-- GALERIA -->
+<section id="galeria">
+  <span class="slabel">Espaço</span>
+  <h2 class="stitle">Galeria</h2>
+  <p class="ssub">Conheça nossa estrutura e os momentos especiais da biblioteca.</p>
+  <div class="gal-g">
+    <img src="eventos.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
+    <img src="galeriasite.jpeg" alt="Galeria" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=600&auto=format&fit=crop'"/>
+    <img src="eventosite.jpeg" alt="Evento" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=600&auto=format&fit=crop'"/>
+    <img src="bibliotecasape.jpeg" alt="Biblioteca" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=600&auto=format&fit=crop'"/>
+          <img src="blblioteca.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
+          <img src="criançada.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
+                <img src="batepapo2.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
+      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
+  </div>
+</section>
 
-    }
-
-    function abrirImagem(src){
-
-      document.getElementById("modal").style.display = "flex";
-
-      document.getElementById("imagemModal").src = src;
-
-    }
-
-    function fecharModal(){
-
-      document.getElementById("modal").style.display = "none";
-
-    }
-
-    // EVENTO 1
-
-    async function carregarEvento1(){
-
-      const resposta = await fetch(
-        "http://127.0.0.1:8000/evento1"
-      );
-
-      const dados = await resposta.json();
-
-      alert(
-        dados.titulo + "\n\n" + dados.descricao
-      );
-
-    }
-
-
-    // LIVROS
-async function carregarLivros(){
-
-  try {
-
-    const resposta = await fetch(
-      "http://127.0.0.1:8000/livros"
-    );
-
-    if(!resposta.ok){
-      throw new Error("Backend não respondeu");
-    }
-
-    const livros = await resposta.json();
-
-    const lista = document.getElementById("lista-livros");
-
-    lista.innerHTML = "";
-
-    livros.forEach(livro => {
-
-      lista.innerHTML += `
-        <div class="card">
-          <div class="card-content">
-            <h3>${livro.titulo}</h3>
-            <p>Autor: ${livro.autor}</p>
-          </div>
+<!-- CONTATO -->
+<section id="contato">
+  <div class="cont-g">
+    <div>
+      <span class="slabel" style="color:var(--gold)">Fale conosco</span>
+      <h2 class="stitle">Contato</h2>
+      <div class="cont-items">
+        <div class="ci"><div class="ci-ic">📍</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=-7.098984,-35.231609" target="_blank">
+            R. Simplício Coelho, Sapé — PB, CEP 58340-000</a></div>
+        <div class="ci"><div class="ci-ic">📞</div><span>(83) 0000-0000</span></div>
+        <div class="ci"><div class="ci-ic">✉️</div>
+          <a href="mailto:bibliotecamunicipalalgusto@gmail.com">bibliotecamunicipalalgusto@gmail.com</a></div>
+      </div>
+      <div class="cont-soc">
+        <p>Siga-nos</p>
+        <div class="soclinks">
+          <a href="https://www.instagram.com/bibliotecaaugustodosanjos/" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"/></a>
         </div>
-      `;
+      </div>
+    </div>
+    <div class="cont-map">
+      <p>📌 Encontre-nos no mapa</p>
+      <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=-7.098984,-35.231609" target="_blank">
+        🗺 Abrir no Google Maps</a>
+      <p style="margin-top:18px;font-size:13px;color:rgba(255,255,255,.45);">Segunda a Sexta<br/>8h às 12h e 13h às 21h</p>
+    </div>
+  </div>
+</section>
 
-    });
+<footer><p>© 2026 Biblioteca Municipal Augusto dos Anjos — Sapé, Paraíba</p></footer>
 
-    document.getElementById("livros").style.display = "block";
+<!-- MODAL GALERIA -->
+<div class="mol" id="mol" onclick="fecharImg()">
+  <span class="mol-x">×</span>
+  <img id="molImg" src="" alt=""/>
+</div>
 
-    document.getElementById("livros").scrollIntoView({
-      behavior:"smooth"
-    });
+<!-- MODAL ADMIN -->
+<div class="aov" id="aov">
+  <div class="amol">
+    <div class="amol-hd">
+      <h2 id="amolTit">🔐 Área do Administrador</h2>
+      <button class="amol-x" onclick="fecharAdmin()">×</button>
+    </div>
+    <div class="amol-bd">
 
-  } catch(erro) {
+      <!-- LOGIN -->
+      <div id="painel-login">
+        <div id="step1" class="ativo">
+          <p style="color:var(--muted);margin-bottom:20px;font-size:14px;">Acesso restrito ao administrador da biblioteca.</p>
+          <div class="fg"><label>E-mail</label>
+            <input type="email" id="loginEmail" placeholder="" autocomplete="off"/></div>
+          <div class="fg"><label>Senha</label>
+            <input type="password" id="loginSenha" placeholder="••••••" autocomplete="current-password"
+              onkeydown="if(event.key==='Enter')etapa1()"/></div>
+          <p class="ferr" id="err1"></p>
+          <button class="btn-full btn-navy" id="btnEtapa1" onclick="etapa1()">Entrar</button>
+        </div>
+      </div>
 
-    console.error(erro);
+      <!-- PAINEL ADMIN -->
+      <div id="painel-admin">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+          <p style="color:var(--muted);font-size:14px;">Bem-vindo, administrador!</p>
+          <button class="bsm bdel" onclick="fazerLogout()">Sair</button>
+        </div>
+        <!-- Abas -->
+        <div class="atabs">
+          <button class="atab ativa" id="tabLivros"      onclick="trocarAba('Livros')">📚 Livros</button>
+          <button class="atab"       id="tabUsuarios"    onclick="trocarAba('Usuarios')">👤 Usuários</button>
+          <button class="atab"       id="tabEmprestimos" onclick="trocarAba('Emprestimos')">🔄 Empréstimos</button>
+          <button class="atab"       id="tabEventos"     onclick="trocarAba('Eventos')">🎭 Eventos</button>
+        </div>
 
-    alert(
-      "Erro ao conectar com o servidor da biblioteca."
-    );
+        <!-- ABA LIVROS -->
+        <div class="apc ativo" id="painelLivros">
+          <div class="aform">
+            <h3 id="fLivroTit">➕ Cadastrar novo livro</h3>
+            <input type="hidden" id="fLivroId"/>
+            <div class="frow">
+              <div class="fg"><label>Nome do livro *</label><input type="text" id="fTitulo" placeholder="Título"/></div>
+              <div class="fg"><label>Autor *</label><input type="text" id="fAutor" placeholder="Nome do autor"/></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Editora *</label><input type="text" id="fEditora" placeholder="Ex: Companhia das Letras"/></div>
+              <div class="fg"><label>Gênero *</label><input type="text" id="fGenero" placeholder="Ex: Literatura Brasileira"/></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Ano de lançamento</label><input type="number" id="fAno" placeholder="Ex: 1999" min="1000" max="2099"/></div>
+              <div class="fg"><label>Nº de Registro *</label><input type="text" id="fReg" placeholder="Ex: REG-0007"/></div>
+            </div>
+            <div class="fg">
+              <label>Aquisição</label>
+              <div class="tipo-aq">
+                <button id="btnDoa" onclick="selAq('Doação')" type="button">🎁 Doação</button>
+                <button id="btnComp" onclick="selAq('Compra')" type="button">🛒 Compra</button>
+              </div>
+              <input type="hidden" id="fAq" value="Compra"/>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+              <button class="bsm bedit" style="padding:9px 22px;font-size:13px;" onclick="salvarLivro()">💾 Salvar</button>
+              <button class="bsm" style="padding:9px 18px;font-size:13px;background:var(--line);color:var(--muted);" onclick="cancelarLivro()">Cancelar</button>
+            </div>
+          </div>
+          <p class="alist-t">📚 Livros cadastrados</p>
+          <div id="adminLivros"><p style="color:var(--muted);font-size:14px;">Carregando...</p></div>
+        </div>
 
-  }
+        <!-- ABA USUÁRIOS -->
+        <div class="apc" id="painelUsuarios">
+          <div class="aform">
+            <h3 id="fUserTit">➕ Cadastrar novo usuário</h3>
+            <input type="hidden" id="fUserId"/>
+            <div class="frow">
+              <div class="fg"><label>Nome *</label><input type="text" id="uNome" placeholder="Nome completo"/></div>
+              <div class="fg"><label>Telefone *</label><input type="text" id="uTel" placeholder="(83) 90000-0000"/></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>E-mail</label><input type="email" id="uEmail" placeholder="email@exemplo.com"/></div>
+              <div class="fg"><label>CPF / RG *</label><input type="text" id="uDoc" placeholder="000.000.000-00"/></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Data de nascimento</label><input type="date" id="uNasc"/></div>
+              <div class="fg"><label>Endereço</label><input type="text" id="uEnd" placeholder="Rua, número, bairro"/></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Bairro</label><input type="text" id="uBairro" placeholder="Ex: Centro"/></div>
+              <div class="fg"><label>Cidade</label><input type="text" id="uCidade" placeholder="Ex: Sapé"/></div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="bsm bedit" style="padding:9px 22px;font-size:13px;" onclick="salvarUsuario()">💾 Salvar</button>
+              <button class="bsm" style="padding:9px 18px;font-size:13px;background:var(--line);color:var(--muted);" onclick="cancelarUsuario()">Cancelar</button>
+            </div>
+          </div>
+          <p class="alist-t">👤 Usuários cadastrados</p>
+          <div id="adminUsuarios"><p style="color:var(--muted);font-size:14px;">Carregando...</p></div>
+        </div>
 
+        <!-- ABA EMPRÉSTIMOS -->
+        <div class="apc" id="painelEmprestimos">
+          <div class="aform">
+            <h3>📤 Registrar empréstimo</h3>
+            <div class="frow">
+              <div class="fg"><label>Livro *</label><select id="eLivro"><option value="">— selecione —</option></select></div>
+              <div class="fg"><label>Usuário *</label><select id="eUser"><option value="">— selecione —</option></select></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Devolução prevista *</label><input type="date" id="ePrev"/></div>
+              <div style="display:flex;align-items:flex-end;">
+                <button class="bsm bloan" style="padding:10px 22px;font-size:13px;" onclick="registrarEmprestimo()">📤 Confirmar</button>
+              </div>
+            </div>
+          </div>
+          <p class="alist-t">🔄 Histórico de empréstimos</p>
+          <div id="adminEmps"><p style="color:var(--muted);font-size:14px;">Carregando...</p></div>
+        </div>
+
+        <!-- ABA EVENTOS -->
+        <div class="apc" id="painelEventos">
+          <div class="aform">
+            <h3 id="fEvTit">➕ Cadastrar novo evento</h3>
+            <input type="hidden" id="fEvId"/>
+            <div class="frow">
+              <div class="fg"><label>Título *</label><input type="text" id="evTitulo" placeholder="Nome do evento"/></div>
+              <div class="fg"><label>Tipo *</label>
+                <input type="text" id="evTipo" placeholder="Ex: Palestra, Oficina, Evento, Projeto, Novidade"/>
+              </div>
+            </div>
+            <div class="fg"><label>Data *</label><input type="date" id="evData"/></div>
+            <div class="fg"><label>Descrição *</label><textarea id="evDesc" placeholder="Descreva o evento..."></textarea></div>
+
+            <!-- Upload múltiplo de fotos -->
+            <div class="fg">
+              <label>Fotos do evento <span style="color:var(--muted);font-weight:400;">(máximo 10 fotos)</span></label>
+              <div class="upload-area" id="uploadArea" onclick="document.getElementById('evFiles').click()">
+                <input type="file" id="evFiles" accept="image/*" multiple style="display:none"
+                  onchange="previewFotos(this)"/>
+                <p style="color:var(--muted);font-size:14px;">📷 Clique aqui para selecionar até 10 fotos</p>
+                <p style="color:var(--muted);font-size:12px;margin-top:4px;">JPG, PNG, WEBP — A primeira foto será a capa do evento</p>
+              </div>
+              <!-- Previews das fotos com campo de legenda individual -->
+              <div id="fotosPreviewContainer" style="display:none;margin-top:16px;">
+                <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:12px;">
+                  📸 Fotos selecionadas — adicione uma legenda para cada uma:
+                </p>
+                <div id="fotosPreviewGrid" style="display:flex;flex-direction:column;gap:12px;"></div>
+              </div>
+              <!-- Fotos já salvas (ao editar) -->
+              <div id="fotosAtuaisWrap" style="display:none;margin-top:14px;">
+                <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px;">📌 Fotos cadastradas:</p>
+                <div id="fotosAtuaisGrid" style="display:flex;flex-direction:column;gap:10px;"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+              <button class="bsm bedit" style="padding:9px 22px;font-size:13px;" onclick="salvarEvento()">💾 Salvar evento</button>
+              <button class="bsm" style="padding:9px 18px;font-size:13px;background:var(--line);color:var(--muted);" onclick="cancelarEvento()">Cancelar</button>
+            </div>
+          </div>
+          <p class="alist-t">🎭 Eventos cadastrados</p>
+          <div id="adminEventos"><p style="color:var(--muted);font-size:14px;">Carregando...</p></div>
+        </div>
+
+      </div><!-- fim painel-admin -->
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   CONFIGURAÇÃO
+══════════════════════════════════════════════════════════════ */
+// ─── ENDEREÇO DO BACKEND ───────────────────────────────────────
+// Em desenvolvimento: "http://127.0.0.1:8000"
+// Em produção: coloque aqui a URL do Render após o deploy
+// Ex: "https://biblioteca-bmaa.onrender.com"
+const API = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://127.0.0.1:8000"
+  : "https://COLOQUE_AQUI_A_URL_DO_RENDER.onrender.com";
+// ───────────────────────────────────────────────────────────────
+
+// Token fica na sessionStorage — apaga automaticamente ao fechar o navegador
+let token = sessionStorage.getItem("bmaa_token") || "";
+let todosLivros = [];
+let tipoAqSel = "Compra";
+
+const TIPO_ICONES = {Palestra:"🎤",Oficina:"✏️",Evento:"🎉",Projeto:"🌱",Novidade:"📦"};
+const ICOS_LIVRO  = {"Literatura Brasileira":"🇧🇷","Fantasia":"🧙","Infantil":"🌟",
+                     "Tecnologia":"💻","Romance":"💛","Ciência":"🔬","História":"🏛","default":"📖"};
+const FALLBACKS   = {
+  "eventosite.jpeg":   "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop",
+  "eventos.jpeg":      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop",
+  "galeriasite.jpeg":  "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=800&auto=format&fit=crop",
+  "bibliotecasape.jpeg":"https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop",
+};
+
+function fmt(iso){ if(!iso) return "—"; const[a,m,d]=iso.split("-"); return`${d}/${m}/${a}`; }
+function hoje(){ return new Date().toISOString().split("T")[0]; }
+function ah(){ return {"Authorization":`Bearer ${token}`,"Content-Type":"application/json"}; }
+function imgSrc(img){
+  if(!img) return FALLBACKS["eventosite.jpeg"];
+  if(img.startsWith("http")) return img;
+  if(img.startsWith("uploads/")) return `${API}/${img}`;
+  return img;
+}
+function imgFb(img){ return FALLBACKS[img] || FALLBACKS["eventosite.jpeg"]; }
+
+function toast(msg,t="ok"){
+  const el=document.getElementById("toast");
+  el.textContent=msg; el.className=`toast ${t} show`;
+  clearTimeout(el._t); el._t=setTimeout(()=>el.className="toast",3400);
 }
 
-  </script>
+/* ── GALERIA ── */
+function abrirImg(src){ document.getElementById("molImg").src=src; document.getElementById("mol").classList.add("open"); }
+function fecharImg(){ document.getElementById("mol").classList.remove("open"); }
 
+/* ══ EVENTOS (público) ══ */
+async function carregarEventos(){
+  const grid=document.getElementById("ev-grid");
+  try{
+    const r=await fetch(`${API}/eventos`);
+    if(!r.ok) throw new Error();
+    const lista=await r.json();
+    if(!lista.length){ grid.innerHTML=`<p class="ev-loading-msg">Nenhum evento cadastrado ainda.</p>`; return; }
+    grid.innerHTML=lista.map(ev=>`
+      <div class="ev-card">
+        <img src="${imgSrc(ev.imagem)}" alt="${ev.titulo}"
+          onerror="this.src='${imgFb(ev.imagem)}'"/>
+        <div class="ev-body">
+          <span class="ev-tag">${TIPO_ICONES[ev.tipo]||"📌"} ${ev.tipo}</span>
+          <h3>${ev.titulo}</h3>
+          <p>${ev.descricao}</p>
+          <a href="evento.html?id=${ev.id}" class="btn-p" style="font-size:13px;padding:9px 18px;margin-top:auto;">
+            Ler mais →
+          </a>
+        </div>
+      </div>
+    `).join("");
+  } catch {
+    grid.innerHTML=`<p class="ev-err">⚠️ Não foi possível carregar os eventos. Verifique se o backend está rodando.</p>`;
+  }
+}
+
+/* ══ LIVROS (público) ══ */
+async function carregarLivros(){
+  document.getElementById("loading-livros").style.display="block";
+  document.getElementById("lista-livros").innerHTML="";
+  try{
+    const r=await fetch(`${API}/livros`);
+    if(!r.ok) throw new Error();
+    todosLivros=await r.json();
+    renderFiltros(); renderLivros(todosLivros);
+  } catch {
+    document.getElementById("lista-livros").innerHTML=
+      `<p style="color:var(--danger);grid-column:1/-1;">⚠️ Backend offline. Inicie com: <code>uvicorn backend.main:app --reload</code></p>`;
+  } finally {
+    document.getElementById("loading-livros").style.display="none";
+  }
+}
+
+function renderFiltros(){
+  const gs=[...new Set(todosLivros.map(l=>l.genero))];
+  const el=document.getElementById("filtros");
+  el.innerHTML=`<button class="fbtn ativo" onclick="filtrar(this,'')">Todos</button>`;
+  gs.forEach(g=>{ const b=document.createElement("button"); b.className="fbtn"; b.textContent=g;
+    b.onclick=function(){filtrar(this,g);}; el.appendChild(b); });
+}
+
+function filtrar(btn,g){
+  document.querySelectorAll(".fbtn").forEach(b=>b.classList.remove("ativo"));
+  btn.classList.add("ativo");
+  renderLivros(g?todosLivros.filter(l=>l.genero===g):todosLivros);
+}
+
+function renderLivros(lista){
+  const el=document.getElementById("lista-livros");
+  if(!lista.length){ el.innerHTML=`<p style="color:var(--muted);grid-column:1/-1;">Nenhum livro encontrado.</p>`; return; }
+  const ac=token?"admin-on":"";
+  el.innerHTML=lista.map(l=>`
+    <div class="lcard ${ac}">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="lbadge bg-gen">${l.genero}</span>
+        <span class="lbadge ${l.disponivel?'bg-disp':'bg-emp'}">${l.disponivel?'✅ Disponível':'🔴 Emprestado'}</span>
+        ${l.tipo_aquisicao?`<span class="lbadge ${l.tipo_aquisicao==='Doação'?'bg-doa':'bg-comp'}">${l.tipo_aquisicao==='Doação'?'🎁':'🛒'} ${l.tipo_aquisicao}</span>`:''}
+      </div>
+      <div class="licone">${ICOS_LIVRO[l.genero]||ICOS_LIVRO.default}</div>
+      <h3>${l.titulo}</h3>
+      <p class="lautor">✍️ ${l.autor}</p>
+      <p class="ldesc">🏢 ${l.editora}${l.ano_lancamento?` · 📅 ${l.ano_lancamento}`:''}<br/>🔖 Reg: ${l.numero_registro}</p>
+      <div class="lactions">
+        <button class="bsm bedit" onclick='editLivro(${JSON.stringify(l)})'>✏️ Editar</button>
+        <button class="bsm bdel"  onclick="delLivro(${l.id})">🗑 Remover</button>
+        ${l.disponivel
+          ?`<button class="bsm bloan" onclick="empRapido(${l.id})">📤 Emprestar</button>`
+          :`<button class="bsm bdev"  onclick="devRapido(${l.id})">📥 Devolver</button>`}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ══ MODAL ADMIN ══ */
+function abrirAdmin(e){ e.preventDefault(); document.getElementById("aov").classList.add("open"); if(token) mostrarAdmin(); }
+function fecharAdmin(){ document.getElementById("aov").classList.remove("open"); }
+document.getElementById("aov").addEventListener("click",function(e){ if(e.target===this) fecharAdmin(); });
+
+/* ══ LOGIN ADMIN ══ */
+async function etapa1(){
+  const email=document.getElementById("loginEmail").value.trim();
+  const senha=document.getElementById("loginSenha").value;
+  const err=document.getElementById("err1"); const btn=document.getElementById("btnEtapa1");
+  err.style.display="none";
+  if(!email||!senha){ err.textContent="Preencha e-mail e senha."; err.style.display="block"; return; }
+  btn.textContent="Entrando..."; btn.disabled=true;
+  try{
+    const r=await fetch(`${API}/login`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,senha})});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.detail||"Erro");
+    token=d.token; sessionStorage.setItem("bmaa_token",token); mostrarAdmin();
+  } catch(ex){ err.textContent=ex.message||"E-mail ou senha incorretos."; err.style.display="block"; }
+  finally { btn.textContent="Entrar"; btn.disabled=false; }
+}
+
+function mostrarAdmin(){
+  document.getElementById("painel-login").style.display="none";
+  document.getElementById("painel-admin").style.display="block";
+  document.getElementById("amolTit").textContent="⚙️ Painel do Administrador";
+  trocarAba("Livros"); carregarLivros();
+}
+
+function fazerLogout(){
+  token=""; sessionStorage.removeItem("bmaa_token");
+  document.getElementById("painel-admin").style.display="none";
+  document.getElementById("painel-login").style.display="block";
+  document.getElementById("amolTit").textContent="🔐 Área do Administrador";
+  document.getElementById("loginSenha").value="";
+  carregarLivros(); fecharAdmin(); toast("Sessão encerrada.");
+}
+
+/* ── Abas ── */
+const ABAS=["Livros","Usuarios","Emprestimos","Eventos"];
+function trocarAba(aba){
+  ABAS.forEach(a=>{
+    document.getElementById("tab"+a).classList.toggle("ativa",a===aba);
+    document.getElementById("painel"+a).classList.toggle("ativo",a===aba);
+  });
+  if(aba==="Livros")      carregarAdminLivros();
+  if(aba==="Usuarios")    carregarAdminUsuarios();
+  if(aba==="Emprestimos"){ carregarAdminEmps(); popularSelects(); }
+  if(aba==="Eventos")     carregarAdminEventos();
+}
+
+/* ── Toggle Doação/Compra ── */
+function selAq(tipo){
+  tipoAqSel=tipo; document.getElementById("fAq").value=tipo;
+  document.getElementById("btnDoa").className=tipo==="Doação"?"sel-doa":"";
+  document.getElementById("btnComp").className=tipo==="Compra"?"sel-comp":"";
+}
+
+/* ══ CRUD LIVROS ══ */
+async function carregarAdminLivros(){
+  const el=document.getElementById("adminLivros");
+  try{
+    const r=await fetch(`${API}/livros`); const lista=await r.json();
+    if(!lista.length){ el.innerHTML=`<p style="color:var(--muted);font-size:14px;">Nenhum livro.</p>`; return; }
+    el.innerHTML=lista.map(l=>`
+      <div class="arow">
+        <div class="ainfo"><strong>${l.titulo}</strong>
+          <span>${l.autor} · ${l.editora} · ${l.genero}${l.ano_lancamento?` · ${l.ano_lancamento}`:''}
+            · Reg: ${l.numero_registro}
+            · <span style="color:${l.tipo_aquisicao==='Doação'?'#7c3aed':'var(--warn)'}">
+                ${l.tipo_aquisicao==='Doação'?'🎁':'🛒'} ${l.tipo_aquisicao||'—'}
+              </span>
+            · <span style="color:${l.disponivel?'var(--success)':'var(--danger)'}">${l.disponivel?'Disponível':'Emprestado'}</span>
+          </span></div>
+        <div class="aac">
+          <button class="bsm bedit" onclick='editLivro(${JSON.stringify(l)})'>✏️</button>
+          <button class="bsm bdel"  onclick="delLivro(${l.id})">🗑</button>
+        </div>
+      </div>
+    `).join("");
+  } catch { el.innerHTML=`<p style="color:var(--danger);">Erro ao carregar.</p>`; }
+}
+
+async function salvarLivro(){
+  const id=document.getElementById("fLivroId").value;
+  const p={titulo:document.getElementById("fTitulo").value.trim(),autor:document.getElementById("fAutor").value.trim(),
+    editora:document.getElementById("fEditora").value.trim(),genero:document.getElementById("fGenero").value.trim(),
+    ano_lancamento:parseInt(document.getElementById("fAno").value)||null,
+    tipo_aquisicao:document.getElementById("fAq").value||"Compra",
+    numero_registro:document.getElementById("fReg").value.trim()};
+  if(!p.titulo||!p.autor||!p.editora||!p.genero||!p.numero_registro){ toast("Preencha os campos obrigatórios (*)","err"); return; }
+  try{
+    const r=await fetch(id?`${API}/admin/livros/${id}`:`${API}/admin/livros`,
+      {method:id?"PUT":"POST",headers:ah(),body:JSON.stringify(p)});
+    if(r.status===401){fazerLogout();return;}
+    const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Erro");
+    toast(id?"Livro atualizado!":"Livro cadastrado!"); cancelarLivro(); carregarAdminLivros(); carregarLivros();
+  } catch(e){ toast(e.message||"Erro ao salvar.","err"); }
+}
+
+async function delLivro(id){
+  if(!confirm("Remover este livro?")) return;
+  try{
+    const r=await fetch(`${API}/admin/livros/${id}`,{method:"DELETE",headers:ah()});
+    if(r.status===401){fazerLogout();return;}
+    if(!r.ok) throw new Error();
+    toast("Livro removido."); carregarAdminLivros(); carregarLivros();
+  } catch{ toast("Erro ao remover.","err"); }
+}
+
+function editLivro(l){
+  document.getElementById("aov").classList.add("open");
+  document.getElementById("painel-login").style.display="none";
+  document.getElementById("painel-admin").style.display="block";
+  trocarAba("Livros");
+  document.getElementById("fLivroTit").textContent="✏️ Editar livro";
+  document.getElementById("fLivroId").value=l.id;
+  document.getElementById("fTitulo").value=l.titulo||"";
+  document.getElementById("fAutor").value=l.autor||"";
+  document.getElementById("fEditora").value=l.editora||"";
+  document.getElementById("fGenero").value=l.genero||"";
+  document.getElementById("fAno").value=l.ano_lancamento||"";
+  document.getElementById("fReg").value=l.numero_registro||"";
+  selAq(l.tipo_aquisicao||"Compra");
+  document.querySelector("#painelLivros .aform").scrollIntoView({behavior:"smooth"});
+}
+function cancelarLivro(){
+  document.getElementById("fLivroTit").textContent="➕ Cadastrar novo livro";
+  document.getElementById("fLivroId").value="";
+  ["fTitulo","fAutor","fEditora","fGenero","fAno","fReg"].forEach(i=>document.getElementById(i).value="");
+  selAq("Compra");
+}
+
+/* ══ CRUD USUÁRIOS ══ */
+async function carregarAdminUsuarios(){
+  const el=document.getElementById("adminUsuarios"); el.innerHTML=`<p style="color:var(--muted);font-size:14px;">Carregando...</p>`;
+  try{
+    const r=await fetch(`${API}/admin/usuarios`,{headers:ah()});
+    if(r.status===401){fazerLogout();return;}
+    const lista=await r.json();
+    if(!lista.length){ el.innerHTML=`<p style="color:var(--muted);font-size:14px;">Nenhum usuário.</p>`; return; }
+    el.innerHTML=lista.map(u=>`
+      <div class="arow">
+        <div class="ainfo"><strong>${u.nome}</strong>
+          <span>📞 ${u.telefone} · 🪪 ${u.documento}${u.email?` · ✉️ ${u.email}`:''}${u.data_nascimento?` · 🎂 ${fmt(u.data_nascimento)}`:''}${u.endereco?` · 🏠 ${u.endereco}`:''}${u.bairro?` · 🏘 ${u.bairro}`:''}${u.cidade?` · 🌆 ${u.cidade}`:''}</span></div>
+        <div class="aac">
+          <button class="bsm bedit" onclick='editUser(${JSON.stringify(u)})'>✏️</button>
+          <button class="bsm bdel"  onclick="delUser(${u.id})">🗑</button>
+        </div>
+      </div>
+    `).join("");
+  } catch{ el.innerHTML=`<p style="color:var(--danger);">Erro ao carregar.</p>`; }
+}
+
+async function salvarUsuario(){
+  const id=document.getElementById("fUserId").value;
+  const p={nome:document.getElementById("uNome").value.trim(),telefone:document.getElementById("uTel").value.trim(),
+    email:document.getElementById("uEmail").value.trim()||null,documento:document.getElementById("uDoc").value.trim(),
+    data_nascimento:document.getElementById("uNasc").value||null,endereco:document.getElementById("uEnd").value.trim()||null,
+    bairro:document.getElementById("uBairro").value.trim()||null,cidade:document.getElementById("uCidade").value.trim()||null};
+  if(!p.nome||!p.telefone||!p.documento){ toast("Preencha nome, telefone e CPF/RG.","err"); return; }
+  try{
+    const r=await fetch(id?`${API}/admin/usuarios/${id}`:`${API}/admin/usuarios`,
+      {method:id?"PUT":"POST",headers:ah(),body:JSON.stringify(p)});
+    if(r.status===401){fazerLogout();return;}
+    const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Erro");
+    toast(id?"Usuário atualizado!":"Usuário cadastrado!"); cancelarUsuario(); carregarAdminUsuarios();
+  } catch(e){ toast(e.message||"Erro ao salvar.","err"); }
+}
+
+async function delUser(id){
+  if(!confirm("Remover este usuário?")) return;
+  try{
+    const r=await fetch(`${API}/admin/usuarios/${id}`,{method:"DELETE",headers:ah()});
+    if(r.status===401){fazerLogout();return;}
+    if(!r.ok) throw new Error();
+    toast("Usuário removido."); carregarAdminUsuarios();
+  } catch{ toast("Erro ao remover.","err"); }
+}
+
+function editUser(u){
+  trocarAba("Usuarios");
+  document.getElementById("fUserTit").textContent="✏️ Editar usuário";
+  document.getElementById("fUserId").value=u.id;
+  document.getElementById("uNome").value=u.nome||"";
+  document.getElementById("uTel").value=u.telefone||"";
+  document.getElementById("uEmail").value=u.email||"";
+  document.getElementById("uDoc").value=u.documento||"";
+  document.getElementById("uNasc").value=u.data_nascimento||"";
+  document.getElementById("uEnd").value=u.endereco||"";
+  document.getElementById("uBairro").value=u.bairro||"";
+  document.getElementById("uCidade").value=u.cidade||"";
+  document.querySelector("#painelUsuarios .aform").scrollIntoView({behavior:"smooth"});
+}
+function cancelarUsuario(){
+  document.getElementById("fUserTit").textContent="➕ Cadastrar novo usuário";
+  document.getElementById("fUserId").value="";
+  ["uNome","uTel","uEmail","uDoc","uNasc","uEnd","uBairro","uCidade"].forEach(i=>document.getElementById(i).value="");
+}
+
+/* ══ EMPRÉSTIMOS ══ */
+async function popularSelects(){
+  try{
+    const[rL,rU]=await Promise.all([fetch(`${API}/livros`),fetch(`${API}/admin/usuarios`,{headers:ah()})]);
+    const livros=await rL.json(); const users=await rU.json();
+    document.getElementById("eLivro").innerHTML=`<option value="">— selecione o livro —</option>`+
+      livros.filter(l=>l.disponivel).map(l=>`<option value="${l.id}">${l.titulo} (${l.numero_registro})</option>`).join("");
+    document.getElementById("eUser").innerHTML=`<option value="">— selecione o usuário —</option>`+
+      users.map(u=>`<option value="${u.id}">${u.nome} — ${u.documento}</option>`).join("");
+  } catch{ toast("Erro ao carregar listas.","err"); }
+}
+
+async function registrarEmprestimo(){
+  const lid=document.getElementById("eLivro").value;
+  const uid=document.getElementById("eUser").value;
+  const prev=document.getElementById("ePrev").value;
+  if(!lid||!uid||!prev){ toast("Selecione livro, usuário e data.","warn"); return; }
+  if(prev<=hoje()){ toast("A data de devolução deve ser futura.","warn"); return; }
+  try{
+    const r=await fetch(`${API}/admin/emprestimos`,{method:"POST",headers:ah(),
+      body:JSON.stringify({livro_id:+lid,usuario_id:+uid,data_prevista:prev})});
+    if(r.status===401){fazerLogout();return;}
+    const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Erro");
+    toast("Empréstimo registrado! 📚");
+    document.getElementById("eLivro").value=""; document.getElementById("eUser").value=""; document.getElementById("ePrev").value="";
+    carregarAdminEmps(); popularSelects(); carregarLivros();
+  } catch(e){ toast(e.message||"Erro ao registrar.","err"); }
+}
+
+async function devolver(empId){
+  if(!confirm("Confirmar devolução?")) return;
+  try{
+    const r=await fetch(`${API}/admin/emprestimos/${empId}/devolver`,{method:"POST",headers:ah()});
+    if(r.status===401){fazerLogout();return;}
+    if(!r.ok) throw new Error();
+    toast("Devolução registrada! ✅"); carregarAdminEmps(); popularSelects(); carregarLivros();
+  } catch{ toast("Erro ao devolver.","err"); }
+}
+
+async function carregarAdminEmps(){
+  const el=document.getElementById("adminEmps"); el.innerHTML=`<p style="color:var(--muted);font-size:14px;">Carregando...</p>`;
+  try{
+    const r=await fetch(`${API}/admin/emprestimos`,{headers:ah()});
+    if(r.status===401){fazerLogout();return;}
+    const lista=await r.json();
+    if(!lista.length){ el.innerHTML=`<p style="color:var(--muted);font-size:14px;">Nenhum empréstimo.</p>`; return; }
+    lista.sort((a,b)=>a.devolvido-b.devolvido);
+    el.innerHTML=lista.map(e=>{
+      const atras=!e.devolvido&&hoje()>e.data_prevista;
+      return`<div class="arow">
+        <div class="ainfo">
+          <strong>📖 ${e.livro_titulo}
+            <span class="lbadge ${e.devolvido?'bg-disp':'bg-gen'}" style="font-size:10px;margin-left:6px;">
+              ${e.devolvido?'✅ Devolvido':atras?'⚠️ Atrasado':'🔄 Ativo'}
+            </span>
+          </strong>
+          <span>👤 ${e.usuario_nome} · 🔖 ${e.livro_registro}<br/>
+            📤 ${fmt(e.data_retirada)} → 📅 ${fmt(e.data_prevista)}
+            ${e.data_devolvido?` · ✅ ${fmt(e.data_devolvido)}`:''}
+            ${atras?` <strong style="color:var(--danger)">— ATRASADO</strong>`:''}
+          </span>
+        </div>
+        <div class="aac">${!e.devolvido?`<button class="bsm bloan" onclick="devolver(${e.id})">📥 Devolver</button>`:''}</div>
+      </div>`;
+    }).join("");
+  } catch{ el.innerHTML=`<p style="color:var(--danger);">Erro ao carregar.</p>`; }
+}
+
+function empRapido(id){
+  abrirAdmin({preventDefault:()=>{}});
+  setTimeout(async()=>{ trocarAba("Emprestimos"); await popularSelects(); document.getElementById("eLivro").value=id; },200);
+}
+async function devRapido(id){
+  try{
+    const r=await fetch(`${API}/admin/emprestimos`,{headers:ah()});
+    if(r.status===401){fazerLogout();return;}
+    const lista=await r.json();
+    const emp=lista.find(e=>e.livro_id===id&&!e.devolvido);
+    if(!emp){ toast("Empréstimo não encontrado.","err"); return; }
+    if(confirm(`Confirmar devolução de "${emp.livro_titulo}" por ${emp.usuario_nome}?`)) devolver(emp.id);
+  } catch{ toast("Erro.","err"); }
+}
+
+/* ══ CRUD EVENTOS ══ */
+
+// Armazena os arquivos selecionados e legendas em memória
+let _fotosNovas = [];       // [{file, legenda}]
+let _fotosExistentes = [];  // [{url, legenda}] — ao editar
+
+function previewFotos(input) {
+  const files = Array.from(input.files);
+  if (files.length > 10) {
+    toast("Máximo de 10 fotos por evento.", "warn");
+    input.value = "";
+    return;
+  }
+  _fotosNovas = files.map(f => ({ file: f, legenda: "" }));
+  const grid = document.getElementById("fotosPreviewGrid");
+  const container = document.getElementById("fotosPreviewContainer");
+  grid.innerHTML = "";
+  _fotosNovas.forEach((item, i) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const div = document.createElement("div");
+      div.style.cssText = "display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:10px;";
+      div.innerHTML = `
+        <img src="${e.target.result}" style="width:80px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;"/>
+        <div style="flex:1;">
+          <p style="font-size:12px;color:var(--muted);margin-bottom:4px;">
+            ${i === 0 ? '<strong style="color:var(--gold)">⭐ Capa</strong> · ' : ''}${item.file.name}
+          </p>
+          <input type="text" placeholder="Legenda desta foto (opcional)"
+            style="width:100%;border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;outline:none;"
+            oninput="_fotosNovas[${i}].legenda = this.value"/>
+        </div>
+      `;
+      grid.appendChild(div);
+    };
+    reader.readAsDataURL(item.file);
+  });
+  container.style.display = "block";
+}
+
+async function _uploadFotosNovas() {
+  if (!_fotosNovas.length) return [];
+  const form = new FormData();
+  _fotosNovas.forEach(item => form.append("files", item.file));
+  const r = await fetch(`${API}/admin/upload-multiplo`, {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${token}` },
+    body: form
+  });
+  if (r.status === 401) { fazerLogout(); return []; }
+  if (!r.ok) { const d = await r.json(); throw new Error(d.detail || "Erro no upload"); }
+  const d = await r.json();
+  // Combina URLs retornadas com as legendas digitadas
+  return d.urls.map((url, i) => ({ url, legenda: _fotosNovas[i]?.legenda || "" }));
+}
+
+async function carregarAdminEventos() {
+  const el = document.getElementById("adminEventos");
+  el.innerHTML = `<p style="color:var(--muted);font-size:14px;">Carregando...</p>`;
+  try {
+    const r = await fetch(`${API}/eventos`);
+    const lista = await r.json();
+    if (!lista.length) { el.innerHTML = `<p style="color:var(--muted);font-size:14px;">Nenhum evento cadastrado.</p>`; return; }
+    el.innerHTML = lista.map(ev => {
+      const nFotos = ev.fotos?.length || (ev.imagem ? 1 : 0);
+      return `
+        <div class="arow">
+          <div class="ainfo">
+            <strong>${TIPO_ICONES[ev.tipo] || "📌"} ${ev.titulo}</strong>
+            <span>${ev.tipo} · 📅 ${fmt(ev.data)} · 📷 ${nFotos} foto${nFotos !== 1 ? "s" : ""}</span>
+          </div>
+          <div class="aac">
+            <button class="bsm bedit" onclick='editEvento(${JSON.stringify(ev).replace(/'/g,"&#39;")})'>✏️</button>
+            <button class="bsm bdel"  onclick="delEvento(${ev.id})">🗑</button>
+            <a class="bsm" href="evento.html?id=${ev.id}" target="_blank"
+              style="background:rgba(11,61,145,.1);color:var(--navy);text-decoration:none;">👁 Ver</a>
+          </div>
+        </div>`;
+    }).join("");
+  } catch { el.innerHTML = `<p style="color:var(--danger);">Erro ao carregar.</p>`; }
+}
+
+async function salvarEvento() {
+  const id = document.getElementById("fEvId").value;
+
+  // Faz upload das fotos novas e combina com as já existentes
+  let fotos = [..._fotosExistentes];
+  try {
+    const novas = await _uploadFotosNovas();
+    fotos = [...fotos, ...novas];
+  } catch (e) { toast(e.message || "Erro no upload.", "err"); return; }
+
+  if (fotos.length > 10) {
+    toast("Máximo de 10 fotos por evento.", "warn"); return;
+  }
+
+  // Capa = primeira foto
+  const imagem  = fotos[0]?.url    || null;
+  const legenda = fotos[0]?.legenda || null;
+
+  const p = {
+    titulo:    document.getElementById("evTitulo").value.trim(),
+    tipo:      document.getElementById("evTipo").value.trim(),
+    data:      document.getElementById("evData").value,
+    descricao: document.getElementById("evDesc").value.trim(),
+    imagem,
+    legenda,
+    fotos,
+  };
+  if (!p.titulo || !p.tipo || !p.data || !p.descricao) {
+    toast("Preencha título, tipo, data e descrição.", "err"); return;
+  }
+  try {
+    const r = await fetch(id ? `${API}/admin/eventos/${id}` : `${API}/admin/eventos`, {
+      method: id ? "PUT" : "POST", headers: ah(), body: JSON.stringify(p)
+    });
+    if (r.status === 401) { fazerLogout(); return; }
+    const d = await r.json(); if (!r.ok) throw new Error(d.detail || "Erro");
+    toast(id ? "Evento atualizado!" : "Evento cadastrado!");
+    cancelarEvento(); carregarAdminEventos(); carregarEventos();
+  } catch (e) { toast(e.message || "Erro ao salvar.", "err"); }
+}
+
+async function delEvento(id) {
+  if (!confirm("Remover este evento?")) return;
+  try {
+    const r = await fetch(`${API}/admin/eventos/${id}`, { method: "DELETE", headers: ah() });
+    if (r.status === 401) { fazerLogout(); return; }
+    if (!r.ok) throw new Error();
+    toast("Evento removido."); carregarAdminEventos(); carregarEventos();
+  } catch { toast("Erro ao remover.", "err"); }
+}
+
+function editEvento(ev) {
+  trocarAba("Eventos");
+  document.getElementById("fEvTit").textContent = "✏️ Editar evento";
+  document.getElementById("fEvId").value    = ev.id;
+  document.getElementById("evTitulo").value = ev.titulo || "";
+  document.getElementById("evTipo").value   = ev.tipo || "";
+  document.getElementById("evData").value   = ev.data || "";
+  document.getElementById("evDesc").value   = ev.descricao || "";
+
+  // Reseta fotos novas
+  _fotosNovas = [];
+  document.getElementById("evFiles").value = "";
+  document.getElementById("fotosPreviewContainer").style.display = "none";
+  document.getElementById("fotosPreviewGrid").innerHTML = "";
+
+  // Carrega fotos já salvas
+  _fotosExistentes = ev.fotos || [];
+  const wrap = document.getElementById("fotosAtuaisWrap");
+  const grid = document.getElementById("fotosAtuaisGrid");
+  if (_fotosExistentes.length) {
+    grid.innerHTML = _fotosExistentes.map((f, i) => `
+      <div style="display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:10px;">
+        <img src="${imgSrc(f.url)}" style="width:80px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;"
+          onerror="this.src='${imgFb(f.url)}'"/>
+        <div style="flex:1;">
+          <p style="font-size:12px;color:var(--muted);margin-bottom:4px;">
+            ${i === 0 ? '<strong style="color:var(--gold)">⭐ Capa</strong> · ' : ''}${f.url.split("/").pop()}
+          </p>
+          <p style="font-size:13px;color:var(--ink);">${f.legenda || "<em style='color:var(--muted)'>sem legenda</em>"}</p>
+        </div>
+        <button class="bsm bdel" onclick="removerFotoExistente(${i})" title="Remover foto">✕</button>
+      </div>
+    `).join("");
+    wrap.style.display = "block";
+  } else {
+    wrap.style.display = "none";
+  }
+  document.querySelector("#painelEventos .aform").scrollIntoView({ behavior: "smooth" });
+}
+
+function removerFotoExistente(i) {
+  _fotosExistentes.splice(i, 1);
+  // Re-renderiza a lista
+  const grid = document.getElementById("fotosAtuaisGrid");
+  const wrap = document.getElementById("fotosAtuaisWrap");
+  if (!_fotosExistentes.length) { wrap.style.display = "none"; return; }
+  grid.innerHTML = _fotosExistentes.map((f, idx) => `
+    <div style="display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:10px;">
+      <img src="${imgSrc(f.url)}" style="width:80px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;"
+        onerror="this.src='${imgFb(f.url)}'"/>
+      <div style="flex:1;">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:4px;">
+          ${idx === 0 ? '<strong style="color:var(--gold)">⭐ Capa</strong> · ' : ''}${f.url.split("/").pop()}
+        </p>
+        <p style="font-size:13px;color:var(--ink);">${f.legenda || "<em style='color:var(--muted)'>sem legenda</em>"}</p>
+      </div>
+      <button class="bsm bdel" onclick="removerFotoExistente(${idx})" title="Remover foto">✕</button>
+    </div>
+  `).join("");
+}
+
+function cancelarEvento() {
+  document.getElementById("fEvTit").textContent = "➕ Cadastrar novo evento";
+  document.getElementById("fEvId").value = "";
+  ["evTitulo", "evData", "evDesc"].forEach(i => document.getElementById(i).value = "");
+  document.getElementById("evTipo").value = "";
+  document.getElementById("evFiles").value = "";
+  document.getElementById("fotosPreviewContainer").style.display = "none";
+  document.getElementById("fotosPreviewGrid").innerHTML = "";
+  document.getElementById("fotosAtuaisWrap").style.display = "none";
+  document.getElementById("fotosAtuaisGrid").innerHTML = "";
+  _fotosNovas = [];
+  _fotosExistentes = [];
+}
+
+/* ── Init ── */
+window.addEventListener("DOMContentLoaded",()=>{
+  selAq("Compra");
+  carregarLivros();
+  carregarEventos();
+});
+</script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+
+    <title>Administrador</title>
+
+</head>
+<body>
+    <h1>Login Administrador</h1>
+
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="senha" placeholder="Senha">
+
+    <button onclick="login()">
+        Entrar
+    </button>
+<script>
+
+async function login(){
+
+    const email =
+    document.getElementById("email").value;
+
+    const senha =
+    document.getElementById("senha").value;
+
+    const resposta = await fetch(
+        "http://127.0.0.1:8000/login",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                email,
+                senha
+            })
+        }
+    );
+
+    if(resposta.ok){
+        const dados = await resposta.json();
+        localStorage.setItem("bmaa_token", dados.token);
+        window.location.href =
+        "admin.html";
+
+    }else{
+
+        alert("Login inválido");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

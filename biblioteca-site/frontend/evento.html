@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evento — Biblioteca Municipal Augusto dos Anjos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --navy:#0b3d91; --navy-dk:#082d6b; --gold:#f5c400; --gold-lt:#ffd740;
+      --cream:#faf8f3; --ink:#1a1a2e; --muted:#6b7280; --line:#e5e7eb; --white:#fff;
+      --font-display:'Playfair Display',Georgia,serif;
+      --font-body:'Inter',Arial,sans-serif;
+      --r-sm:8px; --r-md:16px; --r-lg:24px;
+      --sh-lg:0 16px 48px rgba(0,0,0,.18);
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--cream); color:var(--ink); font-family:var(--font-body); min-height:100vh; }
+
+    /* ── HEADER ── */
+    header {
+      background:var(--navy); color:#fff; padding:0 6%; height:68px;
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100; box-shadow:0 2px 16px rgba(0,0,0,.3);
+    }
+    .hbrand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .hbrand h1 { font-family:var(--font-display); font-size:17px; font-weight:700; color:#fff; }
+    .hback {
+      display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.8);
+      text-decoration:none; font-size:14px; font-weight:500; padding:8px 16px;
+      border:1px solid rgba(255,255,255,.3); border-radius:var(--r-sm); transition:.25s;
+    }
+    .hback:hover { background:rgba(255,255,255,.1); color:#fff; border-color:rgba(255,255,255,.6); }
+
+    /* ── HERO DO EVENTO ── */
+    .ev-hero {
+      min-height:55vh; position:relative; display:flex; align-items:flex-end;
+      background:#111; overflow:hidden;
+    }
+    .ev-hero-img {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; opacity:.55; display:block;
+    }
+    .ev-hero-grad {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(11,61,145,.95) 0%, rgba(0,0,0,.1) 60%);
+    }
+    .ev-hero-content {
+      position:relative; z-index:2; padding:52px 8% 48px; width:100%;
+    }
+    .ev-tipo-badge {
+      display:inline-block; background:var(--gold); color:var(--ink);
+      font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      padding:5px 14px; border-radius:20px; margin-bottom:18px;
+    }
+    .ev-hero-content h1 {
+      font-family:var(--font-display); font-size:clamp(32px,5vw,62px);
+      font-weight:900; color:#fff; line-height:1.1; margin-bottom:16px;
+      max-width:800px;
+    }
+    .ev-meta {
+      display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+      color:rgba(255,255,255,.75); font-size:14px; font-weight:500;
+    }
+    .ev-meta span { display:flex; align-items:center; gap:6px; }
+
+    /* ── CONTEÚDO ── */
+    .ev-body { max-width:860px; margin:0 auto; padding:64px 8%; }
+
+    /* Descrição */
+    .ev-descricao {
+      font-size:18px; line-height:1.9; color:var(--ink);
+      margin-bottom:56px; font-weight:400;
+    }
+    .ev-descricao::first-letter {
+      font-family:var(--font-display); font-size:64px; font-weight:900;
+      color:var(--navy); float:left; line-height:.8; margin-right:12px; margin-top:8px;
+    }
+
+    /* Foto com legenda */
+    .ev-foto-bloco { margin-bottom:56px; }
+    .ev-foto-titulo {
+      font-family:var(--font-display); font-size:22px; font-weight:700;
+      color:var(--navy); margin-bottom:20px;
+      padding-bottom:12px; border-bottom:2px solid var(--gold);
+    }
+    .ev-foto-wrap {
+      border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--sh-lg);
+      background:#111; position:relative;
+    }
+    .ev-foto-wrap img {
+      width:100%; display:block; max-height:520px; object-fit:cover;
+    }
+    /* Legenda estilizada em formato de rodapé */
+    .ev-legenda {
+      background:var(--navy); color:#fff;
+      padding:16px 24px; display:flex; align-items:flex-start; gap:12px;
+    }
+    .ev-legenda-icon {
+      font-size:18px; flex-shrink:0; margin-top:2px; opacity:.8;
+    }
+    .ev-legenda-text {
+      font-size:14px; line-height:1.6; color:rgba(255,255,255,.85); font-style:italic;
+    }
+    .ev-legenda-text strong {
+      display:block; font-style:normal; font-size:11px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--gold);
+      margin-bottom:4px;
+    }
+
+    /* Card de info lateral */
+    .ev-info-card {
+      background:#fff; border-radius:var(--r-lg); padding:28px;
+      border-left:4px solid var(--gold); box-shadow:0 4px 16px rgba(0,0,0,.08);
+      margin-bottom:48px;
+    }
+    .ev-info-card h3 {
+      font-family:var(--font-display); font-size:18px; color:var(--navy);
+      margin-bottom:16px;
+    }
+    .ev-info-row {
+      display:flex; gap:12px; align-items:center; padding:10px 0;
+      border-bottom:1px solid var(--line); font-size:15px;
+    }
+    .ev-info-row:last-child { border-bottom:none; }
+    .ev-info-icon { font-size:20px; width:28px; flex-shrink:0; }
+    .ev-info-label { color:var(--muted); font-size:12px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; }
+    .ev-info-val { color:var(--ink); font-weight:500; }
+
+    /* Botão de volta (rodapé do conteúdo) */
+    .ev-voltar-wrap { text-align:center; padding-top:24px; border-top:1px solid var(--line); margin-top:16px; }
+    .btn-voltar {
+      display:inline-flex; align-items:center; gap:10px; background:var(--navy); color:#fff;
+      text-decoration:none; padding:14px 32px; border-radius:var(--r-sm);
+      font-size:15px; font-weight:700; transition:.25s;
+    }
+    .btn-voltar:hover { background:var(--navy-dk); transform:translateY(-2px); box-shadow:0 8px 24px rgba(11,61,145,.35); }
+
+    /* ── ESTADO DE CARREGAMENTO / ERRO ── */
+    .ev-loading {
+      min-height:60vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:16px;
+      color:var(--muted); font-size:16px;
+    }
+    .ev-loading .spinner {
+      width:44px; height:44px; border:4px solid var(--line);
+      border-top-color:var(--navy); border-radius:50%;
+      animation:spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* ── FOOTER ── */
+    footer { background:var(--ink); color:rgba(255,255,255,.4); text-align:center; padding:22px; font-size:13px; }
+
+    /* ── RESPONSIVO ── */
+    @media(max-width:600px) {
+      header { flex-direction:column; height:auto; padding:14px 5%; gap:10px; }
+      .ev-hero-content { padding:36px 5% 36px; }
+      .ev-body { padding:40px 5%; }
+      .ev-descricao { font-size:16px; }
+      .ev-descricao::first-letter { font-size:48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="hbrand" href="index.html">
+    <span style="font-size:26px">📚</span>
+    <h1>Biblioteca Municipal Augusto dos Anjos</h1>
+  </a>
+  <a class="hback" href="index.html#eventos">← Voltar para Eventos</a>
+</header>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main id="main-content">
+  <div class="ev-loading" id="loading">
+    <div class="spinner"></div>
+    <p>Carregando evento...</p>
+  </div>
+</main>
+
+<footer><p>© 2026 Biblioteca Municipal Augusto dos Anjos — Sapé, Paraíba</p></footer>
+
+<script>
+  // ─── ENDEREÇO DO BACKEND ─────────────────────────────────────
+  const API = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:8000"
+    : "https://COLOQUE_AQUI_A_URL_DO_RENDER.onrender.com";
+  // ─────────────────────────────────────────────────────────────
+
+  const TIPO_ICONES = {
+    Palestra:"🎤", Oficina:"✏️", Evento:"🎉",
+    Projeto:"🌱", Novidade:"📦"
+  };
+
+  function fmt(iso) {
+    if (!iso) return "—";
+    const meses = ["janeiro","fevereiro","março","abril","maio","junho",
+                   "julho","agosto","setembro","outubro","novembro","dezembro"];
+    const [a,m,d] = iso.split("-");
+    return `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${a}`;
+  }
+
+  // Fallbacks para imagens locais que podem não estar presentes
+  const FALLBACKS = {
+    "eventosite.jpeg":   "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop",
+    "eventos.jpeg":      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop",
+    "galeriasite.jpeg":  "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1200&auto=format&fit=crop",
+    "bibliotecasape.jpeg":"https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1200&auto=format&fit=crop",
+  };
+
+  function imgSrc(imagem) {
+    if (!imagem) return "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop";
+    if (imagem.startsWith("http")) return imagem;
+    if (imagem.startsWith("uploads/")) return `${API}/${imagem}`;
+    return imagem; // arquivo local na pasta do frontend
+  }
+
+  function imgFallback(imagem) {
+    return FALLBACKS[imagem] || "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop";
+  }
+
+  async function carregarEvento() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      mostrarErro("Nenhum evento selecionado.");
+      return;
+    }
+
+    try {
+      const resp = await fetch(`${API}/eventos/${id}`);
+      if (!resp.ok) throw new Error("Evento não encontrado");
+      const ev = await resp.json();
+      renderEvento(ev);
+    } catch (err) {
+      mostrarErro(err.message || "Erro ao carregar evento.");
+    }
+  }
+
+  function renderEvento(ev) {
+    const fotos = Array.isArray(ev.fotos)
+      ? ev.fotos
+      : ev.fotos
+        ? JSON.parse(ev.fotos)
+        : [];
+    if (!fotos.length && ev.imagem) {
+      fotos.push({ url: ev.imagem, legenda: ev.legenda || "" });
+    }
+
+    const src    = imgSrc(ev.imagem);
+    const fb     = imgFallback(ev.imagem);
+    const icone  = TIPO_ICONES[ev.tipo] || "📌";
+
+    document.title = `${ev.titulo} — Biblioteca Municipal Augusto dos Anjos`;
+
+    document.getElementById("main-content").innerHTML = `
+
+      <!-- HERO -->
+      <div class="ev-hero">
+        <img class="ev-hero-img" src="${src}" alt="${ev.titulo}"
+          onerror="this.src='${fb}'"/>
+        <div class="ev-hero-grad"></div>
+        <div class="ev-hero-content">
+          <span class="ev-tipo-badge">${icone} ${ev.tipo}</span>
+          <h1>${ev.titulo}</h1>
+          <div class="ev-meta">
+            <span>📅 ${fmt(ev.data)}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CORPO -->
+      <div class="ev-body">
+
+        <!-- Card de informações -->
+        <div class="ev-info-card">
+          <h3>Informações do Evento</h3>
+          <div class="ev-info-row">
+            <span class="ev-info-icon">📌</span>
+            <div>
+              <p class="ev-info-label">Categoria</p>
+              <p class="ev-info-val">${icone} ${ev.tipo}</p>
+            </div>
+          </div>
+          <div class="ev-info-row">
+            <span class="ev-info-icon">📅</span>
+            <div>
+              <p class="ev-info-label">Data</p>
+              <p class="ev-info-val">${fmt(ev.data)}</p>
+            </div>
+          </div>
+          <div class="ev-info-row">
+            <span class="ev-info-icon">📍</span>
+            <div>
+              <p class="ev-info-label">Local</p>
+              <p class="ev-info-val">Biblioteca Municipal Augusto dos Anjos — Sapé, PB</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Descrição com drop cap -->
+        <p class="ev-descricao">${ev.descricao}</p>
+
+        <!-- Foto + legenda em rodapé -->
+        ${fotos.length ? `
+        <div class="ev-foto-bloco">
+          <p class="ev-foto-titulo">Registro Fotográfico</p>
+          ${fotos.length === 1 ? `
+            <div class="ev-foto-wrap">
+              <img src="${imgSrc(fotos[0].url)}" alt="${ev.titulo}"
+                onerror="this.src='${fb}'"/>
+              ${fotos[0].legenda ? `
+              <div class="ev-legenda">
+                <span class="ev-legenda-icon">📷</span>
+                <div class="ev-legenda-text">
+                  <strong>Legenda</strong>${fotos[0].legenda}
+                </div>
+              </div>` : ""}
+            </div>
+          ` : `
+            <div class="ev-galeria-grid">
+              ${fotos.map((f, i) => `
+                <div class="ev-gal-item" onclick="abrirFoto(${i})">
+                  <img src="${imgSrc(f.url)}" alt="Foto ${i+1}"
+                    onerror="this.src='${fb}'"/>
+                  ${f.legenda ? `<p class="ev-gal-legenda">${f.legenda}</p>` : ""}
+                  ${i === 0 ? `<span class="ev-gal-capa">⭐ Capa</span>` : ""}
+                </div>
+              `).join("")}
+            </div>
+          `}
+        </div>` : ""}
+
+        <!-- Lightbox simples para galeria -->
+        <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;
+          align-items:center;justify-content:center;flex-direction:column;gap:16px;" onclick="fecharFoto()">
+          <button onclick="fecharFoto()" style="position:absolute;top:20px;right:28px;background:none;border:none;
+            color:#fff;font-size:40px;cursor:pointer;opacity:.7;line-height:1;">×</button>
+          <button id="lbPrev" onclick="event.stopPropagation();moverFoto(-1)"
+            style="position:absolute;left:20px;background:rgba(255,255,255,.15);border:none;color:#fff;
+            font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;">‹</button>
+          <img id="lbImg" src="" style="max-width:90vw;max-height:78vh;border-radius:12px;display:block;"/>
+          <p id="lbLegenda" style="color:rgba(255,255,255,.8);font-size:14px;font-style:italic;
+            text-align:center;max-width:600px;padding:0 20px;"></p>
+          <p id="lbContador" style="color:rgba(255,255,255,.5);font-size:13px;"></p>
+          <button id="lbNext" onclick="event.stopPropagation();moverFoto(1)"
+            style="position:absolute;right:20px;background:rgba(255,255,255,.15);border:none;color:#fff;
+            font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;">›</button>
+        </div>
+
+        <!-- Botão de voltar -->
+        <div class="ev-voltar-wrap">
+          <a class="btn-voltar" href="index.html#eventos">
+            ← Voltar para todos os eventos
+          </a>
+        </div>
+
+      </div>
+    `;
+  }
+
+  function mostrarErro(msg) {
+    document.getElementById("main-content").innerHTML = `
+      <div class="ev-loading">
+        <span style="font-size:48px">😕</span>
+        <p style="font-size:18px;font-weight:600;color:var(--ink);">${msg}</p>
+        <a href="index.html#eventos" style="color:var(--navy);font-weight:600;font-size:15px;">
+          ← Voltar para os eventos
+        </a>
+      </div>
+    `;
+  }
+
+  carregarEvento();
+</script>
+</body>
+</html>

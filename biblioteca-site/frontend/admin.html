@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Painel Admin</title>
+</head>
+<body>
+    <h1>Administrador</h1>
+    <h2>Cadastrar Livro</h2>
+    <input id="titulo" placeholder="Título"><br><br>
+    <input id="autor" placeholder="Autor"><br><br>
+    <input id="editora" placeholder="Editora"><br><br>
+    <input id="genero" placeholder="Gênero"><br><br>
+    <input id="numero_registro" placeholder="Número de Registro"><br><br>
+    <button onclick="cadastrarLivro()">
+        Salvar Livro
+    </button>
+    <script>
+    async function cadastrarLivro(){
+        const token = localStorage.getItem("bmaa_token") || "";
+        const titulo = document.getElementById("titulo").value;
+        const autor = document.getElementById("autor").value;
+        const editora = document.getElementById("editora").value;
+        const genero = document.getElementById("genero").value;
+        const numero_registro = document.getElementById("numero_registro").value;
+        const resposta = await fetch(
+            "http://127.0.0.1:8000/admin/livros",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body:JSON.stringify({
+                    titulo,
+                    autor,
+                    editora,
+                    genero,
+                    numero_registro
+                })
+            }
+        );
+        if(resposta.ok){
+            alert("Livro salvo!");
+            // Limpar os campos
+            document.getElementById("titulo").value = "";
+            document.getElementById("autor").value = "";
+            document.getElementById("editora").value = "";
+            document.getElementById("genero").value = "";
+            document.getElementById("numero_registro").value = "";
+        }else{
+            const erro = await resposta.json();
+            alert("Erro ao salvar livro: " + (erro.detail || "Erro desconhecido"));
+        }
+    }
+    </script>
+</body>
+</html>
+</html>

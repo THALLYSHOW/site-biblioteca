@@ -6,11 +6,11 @@ const app = express();
 const PORT = 3000;
 
 // pasta pública
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname))
 
 // rota principal
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // iniciar servidor
