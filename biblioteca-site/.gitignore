@@ -5,6 +5,8 @@
 __pycache__/
 *.pyc
 
+# Banco de dados local
+*.db
 
 # Node.js
 node_modules/

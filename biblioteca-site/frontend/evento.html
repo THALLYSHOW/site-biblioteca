@@ -186,7 +186,9 @@
 
 <script>
   // ─── ENDEREÇO DO BACKEND ─────────────────────────────────────
-  const API = "https://site-biblioteca.onrender.com";
+  const API = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+    ? "http://127.0.0.1:8000"
+    : "https://site-biblioteca.onrender.com";
   // ─────────────────────────────────────────────────────────────
 
   const TIPO_ICONES = {
@@ -232,20 +234,31 @@
 
     try {
       const resp = await fetch(`${API}/eventos/${id}`);
-      if (!resp.ok) throw new Error("Evento não encontrado");
-      const ev = await resp.json();
+      const text = await resp.text();
+      if (!resp.ok) {
+        let msg = "Evento não encontrado";
+        try { const data = JSON.parse(text); msg = data.detail || data.message || msg; } catch {}
+        throw new Error(msg);
+      }
+      const ev = JSON.parse(text);
+      if (!ev || typeof ev !== "object") {
+        throw new Error("Resposta inválida do servidor.");
+      }
       renderEvento(ev);
     } catch (err) {
+      console.error("Erro ao carregar evento:", err);
       mostrarErro(err.message || "Erro ao carregar evento.");
     }
   }
 
   function renderEvento(ev) {
-    const fotos = Array.isArray(ev.fotos)
-      ? ev.fotos
-      : ev.fotos
-        ? JSON.parse(ev.fotos)
-        : [];
+    let fotos = [];
+    if (Array.isArray(ev.fotos)) {
+      fotos = ev.fotos;
+    } else if (ev.fotos) {
+      try { fotos = JSON.parse(ev.fotos); } catch { fotos = []; }
+    }
+    if (!Array.isArray(fotos)) fotos = [];
     if (!fotos.length && ev.imagem) {
       fotos.push({ url: ev.imagem, legenda: ev.legenda || "" });
     }

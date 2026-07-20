@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Biblioteca Municipal Augusto dos Anjos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="bibliotecasape.jpeg" rel="stylesheet"/>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
@@ -29,7 +29,7 @@
     .hbrand { display:flex; align-items:center; gap:12px; }
     .hbrand h1 { font-family:var(--font-display); font-size:17px; font-weight:700; }
     nav { display:flex; align-items:center; gap:4px; }
-    nav a { color:rgba(255,255,255,.85); text-decoration:none; font-size:13px; font-weight:500;
+    nav a { color:rgba(255, 255, 255, 0.85); text-decoration:none; font-size:13px; font-weight:500;
       padding:6px 13px; border-radius:var(--r-sm); transition:var(--t); }
     nav a:hover { color:var(--gold); background:rgba(255,255,255,.08); }
     .nav-admin { margin-left:8px; background:var(--gold); color:var(--ink)!important; font-weight:700!important; }
@@ -37,16 +37,16 @@
 
     /* HERO */
     .hero { min-height:88vh;
-      background:linear-gradient(160deg,rgba(11,61,145,.9) 0%,rgba(8,20,60,.78) 100%),
-      url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;
+      background:linear-gradient(160deg,rgba(245, 245, 246, 0.9) 0%,rgba(8,20,60,.78) 100%),
+      url('bibliotecasape.jpeg') center/cover no-repeat;
       display:flex; align-items:center; padding:0 8%; }
     .hero-c { max-width:680px; }
     .hero-ey { display:inline-block; font-size:12px; font-weight:600; letter-spacing:2.5px;
-      text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+      text-transform:uppercase; color:var(--navy); margin-bottom:20px; }
     .hero-c h2 { font-family:var(--font-display); font-size:clamp(40px,6vw,70px); font-weight:900;
       color:#fff; line-height:1.1; margin-bottom:22px; }
-    .hero-c h2 em { font-style:italic; color:var(--gold); }
-    .hero-c p { font-size:18px; color:rgba(255,255,255,.8); line-height:1.8; margin-bottom:38px; max-width:520px; }
+    .hero-c h2 em { font-style:italic; color:var(--navy); }
+    .hero-c p { font-size:18px; color:rgba(255,255,255,.9); line-height:1.8; margin-bottom:38px; max-width:520px; text-shadow:0 2px 8px rgba(0,0,0,.35); }
     .hero-ac { display:flex; gap:16px; flex-wrap:wrap; }
     .btn-p { background:var(--gold); color:var(--ink); border:none; padding:13px 30px;
       border-radius:var(--r-sm); font-size:15px; font-weight:700; cursor:pointer; transition:var(--t);
@@ -123,13 +123,6 @@
     .bloan { background:rgba(22,163,74,.12); color:var(--success); } .bloan:hover { background:var(--success); color:#fff; }
     .bdev  { background:rgba(11,61,145,.1); color:var(--navy); } .bdev:hover { background:var(--navy); color:#fff; }
 
-    /* GALERIA */
-    #galeria { background:var(--cream); }
-    .gal-g { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-    .gal-g img { width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:var(--r-md); cursor:pointer; transition:var(--t); display:block; }
-    .gal-g img:first-child { grid-column:span 2; aspect-ratio:unset; height:100%; }
-    .gal-g img:hover { transform:scale(1.02); opacity:.91; }
-
     /* CONTATO */
     #contato { background:var(--navy); color:#fff; }
     .cont-g { display:grid; grid-template-columns:1fr auto; gap:56px; align-items:start; }
@@ -152,13 +145,6 @@
 
     /* FOOTER */
     footer { background:var(--ink); color:rgba(255,255,255,.4); text-align:center; padding:22px; font-size:13px; }
-
-    /* MODAL GALERIA */
-    .mol { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9999; align-items:center; justify-content:center; }
-    .mol.open { display:flex; }
-    .mol img { max-width:90vw; max-height:88vh; border-radius:var(--r-md); }
-    .mol-x { position:absolute; top:18px; right:30px; font-size:40px; color:#fff; cursor:pointer; opacity:.7; transition:var(--t); }
-    .mol-x:hover { opacity:1; }
 
     /* MODAL ADMIN */
     .aov { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9998; align-items:center; justify-content:center; padding:16px; }
@@ -230,8 +216,7 @@
     @media(max-width:900px) {
       .sobre-g { grid-template-columns:1fr; gap:36px; }
       .cont-g { grid-template-columns:1fr; }
-      .gal-g { grid-template-columns:1fr 1fr; }
-      .gal-g img:first-child { grid-column:span 1; aspect-ratio:3/4; height:auto; }
+      /* galeria removida */
     }
     @media(max-width:600px) {
       header { flex-direction:column; height:auto; padding:14px 5%; gap:10px; }
@@ -254,7 +239,6 @@
     <a href="#sobre">Sobre</a>
     <a href="#eventos">Eventos</a>
     <a href="#livros">Livros</a>
-    <a href="#galeria">Galeria</a>
     <a href="#contato">Contato</a>
     <a href="#" class="nav-admin" onclick="abrirAdmin(event)">⚙ Admin</a>
   </nav>
@@ -280,22 +264,39 @@
       <span class="slabel">Nossa história</span>
       <h2 class="stitle">Sobre a Biblioteca</h2>
       <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-bottom:14px;">
-        A Biblioteca Municipal Augusto dos Anjos promove acesso gratuito ao conhecimento,
-        incentivando a educação, a cultura e o desenvolvimento social em Sapé e região.
+       Fundada em 27 de Agosto de 1940, a Biblioteca Municipal de Sapé é um farol de conhecimento, cultura e incentivo à leitura na região. Mais do que um acervo de livros, o espaço funciona como um ponto de encontro para estudantes, pesquisadores e amantes da literatura.
       </p>
       <p style="color:var(--muted);font-size:16px;line-height:1.8;">
-        Nosso espaço conta com livros, computadores com internet, salas de estudo
-        e atividades educativas abertas a todas as idades.
+       Com localização estratégica no coração da cidade, a biblioteca oferece um ambiente acolhedor voltado para o estudo, a pesquisa e a preservação da memória local.
       </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-top:14px;">
+       A Biblioteca Municipal Augusto dos Anjos é o principal equipamento de incentivo à leitura do município de Sapé. Localizada na Rua Simplício Coelho, s/nº, no centro da cidade, a instituição homenageia um dos poetas mais singulares da literatura brasileira, nascido na região, Augusto dos Anjos. 
+      </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-top:14px;">
+       A biblioteca desempenha um papel fundamental no apoio à educação local, oferecendo à comunidade acesso gratuito a um acervo diversificado e promovendo a valorização da identidade cultural sapeense. 
+      </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;">
+       Muito mais do que um acervo de livros, o espaço foi planejado para oferecer uma experiência completa e confortável para estudantes, pesquisadores e amantes da literatura.
+      </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-top:14px;">
+       Contamos com um acervo diversificado que valoriza desde os grandes clássicos até a identidade cultural paraibana. Para apoiar seus estudos e pesquisas, disponibilizamos computadores com acesso à internet e rede Wi-Fi gratuita para que você possa navegar na internet e estudar usando seus próprios dispositivos (celular, tablet ou notebook). Tudo isso em um espaço totalmente climatizado, garantindo um ambiente fresco e acolhedor para a sua leitura.
+      </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-top:14px;">
+       A nossa missão é promover o acesso democrático à informação, à cultura e à educação.
+      </p>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-top:14px;">
+       Um convite ao conhecimento, venha nos visitar!
+      </p>
+
       <div class="sobre-st">
-        <div class="stat"><strong>+2 mil</strong><span>Livros no acervo</span></div>
+        <div class="stat"><strong>+3 mil</strong><span>Livros no acervo</span></div>
         <div class="stat"><strong>Gratuito</strong><span>Acesso livre</span></div>
         <div class="stat"><strong>Wi-Fi</strong><span>Internet disponível</span></div>
         <div class="stat"><strong>Todos</strong><span>Todas as idades</span></div>
       </div>
     </div>
     <div>
-      <img class="sobre-img" src="bibliotecasape.jpeg" alt="Biblioteca Municipal Augusto dos Anjos"
+      <img class="sobre-img" src="frentebiblioteca.jpeg" alt="Biblioteca Municipal Augusto dos Anjos"
         onerror="this.src='https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=900&auto=format&fit=crop'"/>
     </div>
   </div>
@@ -324,29 +325,6 @@
   </div>
   <div id="loading-livros">⏳ Carregando livros...</div>
   <div class="livros-g" id="lista-livros"></div>
-</section>
-
-<!-- GALERIA -->
-<section id="galeria">
-  <span class="slabel">Espaço</span>
-  <h2 class="stitle">Galeria</h2>
-  <p class="ssub">Conheça nossa estrutura e os momentos especiais da biblioteca.</p>
-  <div class="gal-g">
-    <img src="eventos.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
-    <img src="galeriasite.jpeg" alt="Galeria" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=600&auto=format&fit=crop'"/>
-    <img src="eventosite.jpeg" alt="Evento" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=600&auto=format&fit=crop'"/>
-    <img src="bibliotecasape.jpeg" alt="Biblioteca" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=600&auto=format&fit=crop'"/>
-          <img src="blblioteca.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
-          <img src="criançada.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
-                <img src="batepapo2.jpeg" alt="Eventos" onclick="abrirImg(this.src)"
-      onerror="this.src='https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop'"/>
-  </div>
 </section>
 
 <!-- CONTATO -->
@@ -382,11 +360,7 @@
 
 <footer><p>© 2026 Biblioteca Municipal Augusto dos Anjos — Sapé, Paraíba</p></footer>
 
-<!-- MODAL GALERIA -->
-<div class="mol" id="mol" onclick="fecharImg()">
-  <span class="mol-x">×</span>
-  <img id="molImg" src="" alt=""/>
-</div>
+<!-- MODAL GALERIA removido -->
 
 <!-- MODAL ADMIN -->
 <div class="aov" id="aov">
@@ -566,7 +540,9 @@
    CONFIGURAÇÃO
 ══════════════════════════════════════════════════════════════ */
 // ─── ENDEREÇO DO BACKEND ───────────────────────────────────────
-const API = "https://site-biblioteca.onrender.com";
+const API = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+  ? "http://127.0.0.1:8000"
+  : "https://site-biblioteca.onrender.com";
 // ───────────────────────────────────────────────────────────────
 
 // Token fica na sessionStorage — apaga automaticamente ao fechar o navegador
@@ -601,9 +577,7 @@ function toast(msg,t="ok"){
   clearTimeout(el._t); el._t=setTimeout(()=>el.className="toast",3400);
 }
 
-/* ── GALERIA ── */
-function abrirImg(src){ document.getElementById("molImg").src=src; document.getElementById("mol").classList.add("open"); }
-function fecharImg(){ document.getElementById("mol").classList.remove("open"); }
+/* GALERIA removida */
 
 /* ══ EVENTOS (público) ══ */
 async function carregarEventos(){
@@ -627,8 +601,9 @@ async function carregarEventos(){
         </div>
       </div>
     `).join("");
-  } catch {
-    grid.innerHTML=`<p class="ev-err">⚠️ Não foi possível carregar os eventos. Verifique se o backend está rodando.</p>`;
+  } catch (err) {
+    console.error("Erro ao carregar eventos:", err);
+    grid.innerHTML=`<p class="ev-err">⚠️ Não foi possível carregar os eventos. Verifique se o backend está online e se o CORS está habilitado.</p>`;
   }
 }
 
@@ -641,9 +616,10 @@ async function carregarLivros(){
     if(!r.ok) throw new Error();
     todosLivros=await r.json();
     renderFiltros(); renderLivros(todosLivros);
-  } catch {
+  } catch (err) {
+    console.error("Erro ao carregar livros:", err);
     document.getElementById("lista-livros").innerHTML=
-      `<p style="color:var(--danger);grid-column:1/-1;">⚠️ Backend offline. Inicie com: <code>uvicorn backend.main:app --reload</code></p>`;
+      `<p style="color:var(--danger);grid-column:1/-1;">⚠️ Não foi possível carregar os livros. Verifique o backend e o CORS.</p>`;
   } finally {
     document.getElementById("loading-livros").style.display="none";
   }

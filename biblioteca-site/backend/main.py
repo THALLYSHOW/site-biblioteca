@@ -40,12 +40,18 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # ── CORS ──────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https://site-biblioteca.onrender.com",
+        "https://biblioteca-frontend-4jao.onrender.com",
+        "https://www.bibliotecamunicipalaugustodosanjos.com",
+        "https://bibliotecamunicipalaugustodosanjos.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # ── CREDENCIAIS ───────────────────────────────────────────────
 ADMIN_EMAIL = "bibliotecamunicipalalgusto@gmail.com"
 ADMIN_SENHA = "biblioteca2023"
@@ -318,7 +324,12 @@ def deletar_evento(evento_id: int,
     verificar_token(authorization)
     ev = db.query(models.Evento).filter(models.Evento.id == evento_id).first()
     if not ev: raise HTTPException(404, "Evento não encontrado")
-    db.delete(ev); db.commit()
+    try:
+        db.delete(ev)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(500, f"Erro ao remover evento: {str(e)}")
     return {"mensagem": "Evento removido"}
 
 
@@ -361,8 +372,18 @@ def deletar_livro(livro_id: int,
     verificar_token(authorization)
     l = db.query(models.Livro).filter(models.Livro.id == livro_id).first()
     if not l: raise HTTPException(404, "Livro não encontrado")
-    db.delete(l); db.commit()
-    return {"mensagem": "Livro removido"}
+    # Deletar emprestimos relacionados antes de apagar o livro (comportamento em cascata)
+    try:
+        emprestimos = db.query(models.Emprestimo).filter(models.Emprestimo.livro_id == livro_id).all()
+        for emp in emprestimos:
+            # se houver referência ao livro, apenas remova o empréstimo
+            db.delete(emp)
+        db.delete(l)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(500, f"Erro ao remover livro: {str(e)}")
+    return {"mensagem": "Livro e empréstimos relacionados removidos"}
 
 
 # ── USUÁRIOS (admin CRUD) ─────────────────────────────────────
@@ -403,8 +424,20 @@ def deletar_usuario(uid: int,
     verificar_token(authorization)
     u = db.query(models.Usuario).filter(models.Usuario.id == uid).first()
     if not u: raise HTTPException(404, "Usuário não encontrado")
-    db.delete(u); db.commit()
-    return {"mensagem": "Usuário removido"}
+    # Deletar emprestimos relacionados antes de apagar o usuário (comportamento em cascata)
+    try:
+        emprestimos = db.query(models.Emprestimo).filter(models.Emprestimo.usuario_id == uid).all()
+        for emp in emprestimos:
+            # se o empréstimo estiver associado a um livro, marque o livro como disponível
+            if emp.livro:
+                emp.livro.disponivel = True
+            db.delete(emp)
+        db.delete(u)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(500, f"Erro ao remover usuário: {str(e)}")
+    return {"mensagem": "Usuário e empréstimos relacionados removidos"}
 
 
 # ── EMPRÉSTIMOS ───────────────────────────────────────────────
@@ -448,3 +481,22 @@ def devolver(emp_id: int,
         emp.livro.disponivel = True
     db.commit()
     return {"mensagem": "Devolução registrada"}
+
+
+@app.delete("/admin/emprestimos/{emp_id}")
+def deletar_emprestimo(emp_id: int,
+                      authorization: str = Header(default=""),
+                      db: Session = Depends(get_db)):
+    verificar_token(authorization)
+    emp = db.query(models.Emprestimo).filter(models.Emprestimo.id == emp_id).first()
+    if not emp:
+        raise HTTPException(404, "Empréstimo não encontrado")
+    try:
+        if emp.livro:
+            emp.livro.disponivel = True
+        db.delete(emp)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(500, f"Erro ao remover empréstimo: {str(e)}")
+    return {"mensagem": "Empréstimo removido"}
